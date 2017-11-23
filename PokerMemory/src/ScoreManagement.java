@@ -39,7 +39,7 @@ public class ScoreManagement extends JLabel {
 	private void update()
 	{
 		this.setText("" + this.getScore());
-		this.setHorizontalAlignment(SwingConstants.RIGHT);
+//		this.setHorizontalAlignment(SwingConstants.RIGHT);
 	}
 
 	public void reset()

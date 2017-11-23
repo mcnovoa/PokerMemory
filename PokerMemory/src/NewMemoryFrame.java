@@ -15,12 +15,9 @@ public class NewMemoryFrame extends MemoryFrame {
 	private JLabel levelDescriptionLabel;
 	private ScoreManagement score;
 
-
-	
 	public NewMemoryFrame() {
 		super();
 		// TODO Auto-generated constructor stub
-
 	}
 
 
