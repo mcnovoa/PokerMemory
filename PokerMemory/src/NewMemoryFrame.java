@@ -8,71 +8,65 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class NewMemoryFrame extends MemoryFrame {
-	ScoreManagement score = new ScoreManagement();
+
 	
-    public NewMemoryFrame() {
-        super();
-        super.setScore(score.getScore());
-        JMenuBar menuBar = this.getJMenuBar();
-        JMenu memoryMenu = null;
-        for (int i = 0; i < menuBar.getMenuCount(); i++) {
-            if (menuBar.getMenu(i).getText().equals("Memory")) {
-                memoryMenu = menuBar.getMenu(i);
-                break;
-            }
-        }
-        
-        ActionListener menuHandler = new ActionListener() {
-            public void actionPerformed1(ActionEvent e) {
-                try {
-                    if(e.getActionCommand().equals("Same Rank Trio Score")) newGame("ranktrioscore");
-                } catch (IOException e2) {
-                    e2.printStackTrace(); throw new RuntimeException("IO ERROR");
-                }
-            }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5074343438278317645L;
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+	public NewMemoryFrame() {
+		super();
+		JMenuBar menuBar = this.getJMenuBar();
+		JMenu memoryMenu = null;
+		for (int i = 0; i < menuBar.getMenuCount(); i++) {
+			if (menuBar.getMenu(i).getText().equals("Memory")) {
+				memoryMenu = menuBar.getMenu(i);
+				break;
 			}
-        };
+		}
 
-        JMenuItem rankTrioScoreMenuItem = new JMenuItem("Same Rank Trio Score");
-        rankTrioScoreMenuItem.addActionListener(menuHandler);
-        memoryMenu.add(rankTrioScoreMenuItem);
-    }
+		ActionListener menuHandler = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(e.getActionCommand().equals("Flush")) newGame("flush");
+				} catch (IOException e2) {
+					e2.printStackTrace(); throw new RuntimeException("IO ERROR");
+				}
+			}
+		};
 
-    /**
-     * Prepares a new game (first game or non-first game)
-     * @throws IOException 
-     */
-    public void newGame(String difficultyMode) throws IOException
-    {
-        // Reset the turn counter label
-        this.getTurnCounterLabel().reset();
-        
-        //Set Score
-        this.setScore(score.getScore());
-        
-        // make a new card field with cards, and add it to the window
+		JMenuItem flushMenuItem = new JMenuItem("Flush");
+		flushMenuItem.addActionListener(menuHandler);
+		memoryMenu.add(flushMenuItem);
+	}
 
-//        if(difficultyMode.equalsIgnoreCase("ranktrioscore")) {
-//            this.setGameLevel(new RankTrioWithScore(this.getTurnCounterLabel(), this));
-//            this.getLevelDescriptionLabel().setText("Same Rank Trio Level Score");
-//            this.getTurnCounterLabel().reset();
-//
-//            // clear out the content pane (removes turn counter label and card field)
-//            BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
-//            this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
-//            this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
-//
-//            // show the window (in case this is the first game)
-//            this.setVisible(true);
-//        }
-//        else {
-//            super.newGame(difficultyMode);
-//        }
-    }
+	/**
+	 * Prepares a new game (first game or non-first game)
+	 * @throws IOException
+	 */
+	public void newGame(String difficultyMode) throws IOException
+	{
+		// Reset the turn counter label
+		this.getTurnCounterLabel().reset();
 
+		// make a new card field with cards, and add it to the window
+
+		if(difficultyMode.equalsIgnoreCase("flush")) {
+			this.setGameLevel(new FlushLevel(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Flush");
+			this.getTurnCounterLabel().reset();
+
+			// clear out the content pane (removes turn counter label and card field)
+			BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
+			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+
+			// show the window (in case this is the first game)
+			this.setVisible(true);
+		}
+		else {
+			super.newGame(difficultyMode);
+		}
+	}
 }
