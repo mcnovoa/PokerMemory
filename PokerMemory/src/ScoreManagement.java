@@ -1,29 +1,17 @@
 /**
  * Inherits from JLabel and implements the management of the score based on the Level
  *
- * @author María C. Novoa García (original author)
+ * @author Marï¿½a C. Novoa Garcï¿½a (original author)
  * @author Alberto Canela Cubero ()
  * @version Nov 2017
  */
 
-import java.io.IOException;
-import java.util.ArrayList;
+public class ScoreManagement{
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-public class ScoreManagement extends JLabel {
-
-	private long score = 0;
-	private int i = 0;
-	private MemoryFrame instance;
-	private GameManager gameMan;
-	private EasyLevel  easyLevel;
-	private EqualPairLevel equalPairLevel;
-	private RankTrioLevel rankTrioLevel;
-	private FlushLevel flushLevel;
-	private GameLevel gameLevel;
-	private int rankValue;
+	private long score;
+	private GameLevel level;
+	private int turnNumber;
+	private NewMemoryFrame myframe;
 
 
 	final private int JValue = 11;
@@ -32,17 +20,24 @@ public class ScoreManagement extends JLabel {
 	final private int AValue = 20;
 	final private int tenValue = 10;
 
+	
 
-	//	private ArrayList <Card> grid= new ArrayList<Card>();
-
-
-	public ScoreManagement()
+	public ScoreManagement(NewMemoryFrame game)
 	{
-		super();
-		reset();
+		this.myframe = game;
+		this.level = myframe.getDifficulty();
+		this.score = 0;
+		this.turnNumber = 0;
+
+	
+		}
+public void setLevel(GameLevel level) {
+		this.level = level;
 	}
 
+	
 	public int returnRankValue(Card card){
+		int rankValue;
 
 		if(card.getRank().equals("t")){
 			rankValue = tenValue;
@@ -59,8 +54,9 @@ public class ScoreManagement extends JLabel {
 		else if(card.getRank().equals("a")){
 			rankValue = AValue;
 		}
-
-
+		else {
+			rankValue = Integer.parseInt(card.getRank());
+		}
 		return rankValue;
 	}
 	/**
@@ -69,59 +65,32 @@ public class ScoreManagement extends JLabel {
 	 * @return score
 	 */
 
-	public long returnEqualPair(GameLevel difficulty){
-
-
-		if(difficulty.getTurnedCardsBuffer().size() == 2){
-
-
-			Card card = difficulty.getTurnedCardsBuffer().get(0);
-			if(difficulty.turnUp(card)){
-
-				Card card1 = difficulty.getTurnedCardsBuffer().get(1);
-
-
-			//Score Instructions for "EqualPairLevel"
-			//		if(card.getNum() == (card1.getNum())){
-			if( (card.getRank().equals(card1.getRank())) && (card.getSuit().equals(card1.getSuit()))){
-				score+= 50;
-				
-
-			}}
-			else {
-				score =- 5;
-				
-
-
+	private void calculateEqualPair()
+	{
+		//Calculates score only once per turn
+		if(myframe.getTurnCounterLabel().getNumOfTurns() > turnNumber)
+		{
+			//If there are 2 elements in buffer, they are waiting for facedown, thus the combination is incorrect.
+			if(level.getTurnedCardsBuffer().size() == 2) 
+			{
+				this.score -= 5;
 			}
-
-
-			//		else if(instance.getLevelDescriptionLabel().equals(rankTrioLevel.getMode())){
-			//			//Score Instructions for "RankTrioLevel"
-			//
-			//			if(card.getRank().equals(card1.getRank()) &&  card.getRank().equals(card2.getRank())){
-			//				score =+ 100 + this.returnRankValue(card) + this.returnRankValue(card1) + this.returnRankValue(card2);
-			//				
-			//
-			//			}
-			//			else {score =- 5;}
-			//
-			//		}
-
-			//		else if(  .getMode().equals(flushLevel.getMode())){
-			//			if
-			//		}
+			
+			//Correct combinations (Equal Pairs) are eliminated from buffer in EqualPairLevel FaceUp method.
+			else if (level.getTurnedCardsBuffer().isEmpty()) 
+			{
+				this.score += 50;
+			}
+			turnNumber++;
 		}
-
-		return score;
 	}
 
-	public long getScore(NewMemoryFrame frame) {
-		long result = 0;
-		if (frame.getDifficulty().getMode() == "MediumMode"){
-			result =  this.returnEqualPair(frame.getDifficulty());
+	public long getScore() {
+		if (level.getMode() == "MediumMode")
+		{
+			calculateEqualPair();
 		}
-		return result;
+		return this.score;
 
 	}
 
@@ -131,12 +100,3 @@ public class ScoreManagement extends JLabel {
 		this.score = 0;
 	}
 }
-
-
-
-
-
-
-
-
-
