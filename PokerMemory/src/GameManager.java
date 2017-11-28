@@ -22,14 +22,20 @@ public class GameManager {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		// make an instance of the main game class
-
+		
+		ScoreManagement score = new ScoreManagement();
+		
 		int playMore = 2;
 		while (playMore != 1) {
 			NewMemoryFrame instance = new NewMemoryFrame();
+			
+			
 			instance.newGame("easy");
+			instance.setScore(0);
 
 			while(!instance.gameOver()) {
-				Thread.sleep(500);
+				instance.setScore(score.getScore(instance));
+				Thread.sleep(50);
 			}
 			playMore = JOptionPane.showConfirmDialog(null, "Play Again?", "GAME OVER!!!", JOptionPane.YES_NO_OPTION);
 			System.out.println(playMore+"");

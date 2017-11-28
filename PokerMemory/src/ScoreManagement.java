@@ -15,11 +15,16 @@ import javax.swing.SwingConstants;
 public class ScoreManagement extends JLabel {
 
 	private long score = 0;
+	private int i = 0;
+	private MemoryFrame instance;
+	private GameManager gameMan;
 	private EasyLevel  easyLevel;
 	private EqualPairLevel equalPairLevel;
 	private RankTrioLevel rankTrioLevel;
+	private FlushLevel flushLevel;
 	private GameLevel gameLevel;
 	private int rankValue;
+
 
 	final private int JValue = 11;
 	final private int QValue = 12;
@@ -61,62 +66,69 @@ public class ScoreManagement extends JLabel {
 	/**
 	 * Returns the Score according to it's level mode
 	 * 
-	 * @param card type Card representing the first card on the buffer
-	 * @param card1 type Card representing the first card on the buffer
-	 * @param card2 type Card representing the first card on the buffer
-	 * 
 	 * @return score
 	 */
 
-	public long returnTheScore(Card card, Card card1, Card card2){
-		card = gameLevel.getTurnedCardsBuffer().get(0);
-		card1 = gameLevel.getTurnedCardsBuffer().get(1);
-		card2 = gameLevel.getTurnedCardsBuffer().get(2);
+	public long returnEqualPair(GameLevel difficulty){
 
-		if(gameLevel.getMode().equals(equalPairLevel.getMode())){
+
+		if(difficulty.getTurnedCardsBuffer().size() == 2){
+
+
+			Card card = difficulty.getTurnedCardsBuffer().get(0);
+			if(difficulty.turnUp(card)){
+
+				Card card1 = difficulty.getTurnedCardsBuffer().get(1);
+
+
 			//Score Instructions for "EqualPairLevel"
+			//		if(card.getNum() == (card1.getNum())){
 			if( (card.getRank().equals(card1.getRank())) && (card.getSuit().equals(card1.getSuit()))){
 				score+= 50;
-				update();
-			}
+				
+
+			}}
 			else {
 				score =- 5;
-				update();}
+				
 
-		}
-
-		else if(gameLevel.getMode().equals(rankTrioLevel.getMode())){
-			//Score Instructions for "RankTrioLevel"
-
-			if(card.getRank().equals(card1.getRank()) &&  card.getRank().equals(card2.getRank())
-					&& card.getSuit().equals(card1.getSuit()) &&  card.getSuit().equals(card2.getSuit())){
-				score =+ 100 + this.returnRankValue(card) + this.returnRankValue(card1) + this.returnRankValue(card2);
-				update();
 
 			}
-			else {score =- 5;}
 
+
+			//		else if(instance.getLevelDescriptionLabel().equals(rankTrioLevel.getMode())){
+			//			//Score Instructions for "RankTrioLevel"
+			//
+			//			if(card.getRank().equals(card1.getRank()) &&  card.getRank().equals(card2.getRank())){
+			//				score =+ 100 + this.returnRankValue(card) + this.returnRankValue(card1) + this.returnRankValue(card2);
+			//				
+			//
+			//			}
+			//			else {score =- 5;}
+			//
+			//		}
+
+			//		else if(  .getMode().equals(flushLevel.getMode())){
+			//			if
+			//		}
 		}
+
 		return score;
 	}
 
-	public long getScore() {
-		return score;
+	public long getScore(NewMemoryFrame frame) {
+		long result = 0;
+		if (frame.getDifficulty().getMode() == "MediumMode"){
+			result =  this.returnEqualPair(frame.getDifficulty());
+		}
+		return result;
+
 	}
 
-	public void setScore(long score) {
-		this.score = score;
-	}
-
-	private void update()
-	{
-		this.setText("" + this.getScore());
-	}
 
 	public void reset()
 	{
 		this.score = 0;
-		update();
 	}
 }
 
