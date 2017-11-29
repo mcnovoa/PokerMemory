@@ -117,7 +117,6 @@ public class StraightLevel extends FlushLevel {
 	
 	private void successScoreUpdate(Card a, Card b, Card c, Card d, Card e)
 	{
-		
 		score =+ 1000 + 100*ScoreManagement.returnRankValue(e);
 		this.getMainFrame().setScore(score);
 	}
