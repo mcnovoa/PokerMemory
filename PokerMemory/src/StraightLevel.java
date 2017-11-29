@@ -120,4 +120,5 @@ public class StraightLevel extends FlushLevel {
 		score += 1000 + 100*highRank;
 		this.getMainFrame().setScore(score);
 	}
+	
 }
