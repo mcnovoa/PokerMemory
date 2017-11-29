@@ -9,12 +9,12 @@ import javax.swing.JMenuItem;
 
 public class NewMemoryFrame extends MemoryFrame {
 
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5074343438278317645L;
-    
+
 	public NewMemoryFrame() {
 		super();
 		JMenuBar menuBar = this.getJMenuBar();
@@ -30,6 +30,7 @@ public class NewMemoryFrame extends MemoryFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(e.getActionCommand().equals("Flush")) newGame("flush");
+					if(e.getActionCommand().equals("Straight")) newGame("straight");
 				} catch (IOException e2) {
 					e2.printStackTrace(); throw new RuntimeException("IO ERROR");
 				}
@@ -39,6 +40,12 @@ public class NewMemoryFrame extends MemoryFrame {
 		JMenuItem flushMenuItem = new JMenuItem("Flush");
 		flushMenuItem.addActionListener(menuHandler);
 		memoryMenu.add(flushMenuItem);
+
+		JMenuItem straightMenuItem = new JMenuItem("Straight");
+		straightMenuItem.addActionListener(menuHandler);
+		memoryMenu.add(straightMenuItem);
+
+
 	}
 
 	/**
@@ -60,6 +67,20 @@ public class NewMemoryFrame extends MemoryFrame {
 			// clear out the content pane (removes turn counter label and card field)
 			BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
 			this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
+			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+
+			// show the window (in case this is the first game)
+			this.setVisible(true);
+		}
+
+		if(difficultyMode.equalsIgnoreCase("straight")) {
+			this.setGameLevel(new StraightLevel(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Straight");
+			this.getTurnCounterLabel().reset();
+
+			// clear out the content pane (removes turn counter label and card field)
+			BorderLayout b2  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b2.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
