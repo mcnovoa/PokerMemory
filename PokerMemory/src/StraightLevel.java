@@ -3,7 +3,7 @@ import java.util.Arrays;
 import javax.swing.JFrame;
 
 public class StraightLevel extends FlushLevel {
-	
+
 	private long score;
 
 	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
@@ -16,7 +16,7 @@ public class StraightLevel extends FlushLevel {
 		// TODO Auto-generated method stub
 		return "StraightMode";
 	}
-	
+
 	@Override
 	public long getScore() {
 		return score;
@@ -55,8 +55,8 @@ public class StraightLevel extends FlushLevel {
 				//General Instruction
 				if((bufferArr[1] == bufferArr[0] + 1) && (bufferArr[2] == bufferArr[0] + 2)
 						&& (bufferArr[3] == bufferArr[0] + 3 ) && (bufferArr[4] == bufferArr[0] + 4)){
-					
-					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
+
+					this.successScoreUpdate(bufferArr[4]);
 					this.getTurnedCardsBuffer().clear();
 				}
 
@@ -64,8 +64,8 @@ public class StraightLevel extends FlushLevel {
 
 				if((bufferArr[0] == 10) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
 						&& bufferArr[4] == 20){
-					
-					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
+
+					this.successScoreUpdate(bufferArr[4]);
 					this.getTurnedCardsBuffer().clear();
 				}
 
@@ -73,8 +73,8 @@ public class StraightLevel extends FlushLevel {
 
 				if((bufferArr[0] == 2) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
 						&& bufferArr[4] == 20){
-					
-					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
+
+					this.successScoreUpdate(bufferArr[4]);
 					this.getTurnedCardsBuffer().clear();
 				}
 
@@ -82,8 +82,8 @@ public class StraightLevel extends FlushLevel {
 
 				if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
 						&& bufferArr[4] == 20){
-					
-					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
+
+					this.successScoreUpdate(bufferArr[4]);
 					this.getTurnedCardsBuffer().clear();
 				}
 
@@ -91,33 +91,33 @@ public class StraightLevel extends FlushLevel {
 
 				if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4) && (bufferArr[3] == 13)
 						&& bufferArr[4] == 20){
-					
-					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
+
+					this.successScoreUpdate(bufferArr[4]);
 					this.getTurnedCardsBuffer().clear();
 				}
 				//Case #: If otherCard1's rank is "a"
 
 				if((bufferArr[4] == 20) && (bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4)
 						&& bufferArr[3] == 5){
-					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
+					this.successScoreUpdate(bufferArr[4]);
 					this.getTurnedCardsBuffer().clear();
 				}
 
 				else{
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
-					this.getMainFrame().setScore(this.getScore()-5);
-					
+					this.getMainFrame().setScore(score-=5);
+
 				}
 			}
 			return true;
 		}
 		return false;
 	}
-	
-	private void successScoreUpdate(Card a, Card b, Card c, Card d, Card e)
+
+	private void successScoreUpdate(int highRank)
 	{
-		score =+ 1000 + 100*ScoreManagement.returnRankValue(e);
+		score += 1000 + 100*highRank;
 		this.getMainFrame().setScore(score);
 	}
 }

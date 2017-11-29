@@ -1,9 +1,9 @@
 import javax.swing.JFrame;
 
 public class FlushLevel extends RankTrioLevel {
-	
+
 	private long score;
-	
+
 	// FLUSH LEVEL: The goal is to find, on each turn, five cards with the same suit.
 
 	protected FlushLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
@@ -12,12 +12,12 @@ public class FlushLevel extends RankTrioLevel {
 		this.setCardsToTurnUp(5);
 		this.score = 0;
 	}
-	
+
 	@Override
 	public String getMode() {
 		return "FlushMode";
 	}
-	
+
 
 	public long getScore() {
 		return score;
@@ -41,12 +41,12 @@ public class FlushLevel extends RankTrioLevel {
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(2);
 				Card otherCard4 = (Card) this.getTurnedCardsBuffer().get(3);
 				if((card.getSuit().equals(otherCard1.getSuit())) &&
-				   (card.getSuit().equals(otherCard2.getSuit())) &&
-				   (card.getSuit().equals(otherCard3.getSuit())) &&
-				   (card.getSuit().equals(otherCard4.getSuit())))
+						(card.getSuit().equals(otherCard2.getSuit())) &&
+						(card.getSuit().equals(otherCard3.getSuit())) &&
+						(card.getSuit().equals(otherCard4.getSuit())))
 				{
-					
-					
+
+
 					// Five cards match, calculate points and remove them from the list (they will remain face up)
 					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
 					this.getTurnedCardsBuffer().clear();
@@ -62,12 +62,12 @@ public class FlushLevel extends RankTrioLevel {
 		}
 		return false;
 	}
-	
+
 	private void successScoreUpdate(Card a, Card b, Card c, Card d, Card e)
 	{
 		score = 700 + ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
-		            + ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
-		            + ScoreManagement.returnRankValue(e);
+		+ ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
+		+ ScoreManagement.returnRankValue(e);
 		this.getMainFrame().setScore(score);
 	}
 }
