@@ -2,7 +2,7 @@
  * Class for some scoring methods
  *
  * @author Mar�a C. Novoa Garc�a (original author)
- * @author Alberto Canela Cubero ()
+ * @author Alberto Canela Cubero (contribuitor)
  * @version Nov 2017
  */
 
