@@ -18,7 +18,6 @@ public class FlushLevel extends RankTrioLevel {
 		return "FlushMode";
 	}
 
-
 	public long getScore() {
 		return score;
 	}
@@ -65,9 +64,8 @@ public class FlushLevel extends RankTrioLevel {
 
 	private void successScoreUpdate(Card a, Card b, Card c, Card d, Card e)
 	{
-		score = 700 + ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
-		+ ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
-		+ ScoreManagement.returnRankValue(e);
+
+		score += 700 + ScoreManagement.sumOfRanks(a, b, c, d, e);
 		this.getMainFrame().setScore(score);
 	}
 }

@@ -14,6 +14,7 @@ public class ScoreManagement{
 	final static private int AValue = 20;
 	final static private int tenValue = 10;
 
+	//Proceses the rank value from string to integer 
 	public static int returnRankValue(Card card){
 		int rankValue = 0;
 
@@ -36,5 +37,17 @@ public class ScoreManagement{
 			rankValue = Integer.parseInt(card.getRank());
 		}
 		return rankValue;
+	}
+	//Adds the ranks of the cards
+	public static int sumOfRanks(Card a, Card b, Card c) {
+		int sum = ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
+        + ScoreManagement.returnRankValue(c);
+		return sum;
+	}
+	public static int sumOfRanks(Card a, Card b, Card c, Card d, Card e) {
+		int sum = ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
+        + ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
+        + ScoreManagement.returnRankValue(e);
+		return sum;
 	}
 }
