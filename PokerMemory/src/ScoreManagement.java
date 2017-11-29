@@ -37,4 +37,16 @@ public class ScoreManagement{
 		}
 		return rankValue;
 	}
+	
+	public static int sumOfRanks(Card a, Card b, Card c) {
+		int sum = ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
+        + ScoreManagement.returnRankValue(c);
+		return sum;
+	}
+	public static int sumOfRanks(Card a, Card b, Card c, Card d, Card e) {
+		int sum = ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
+        + ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
+        + ScoreManagement.returnRankValue(e);
+		return sum;
+	}
 }
