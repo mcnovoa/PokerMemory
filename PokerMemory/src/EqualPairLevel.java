@@ -80,11 +80,13 @@ public class EqualPairLevel extends EasyLevel {
 				if( otherCard.getNum() == card.getNum()) 
 				{
 					this.getTurnedCardsBuffer().clear();
+					//Add points for match
 				    this.getMainFrame().setScore(score +=50);
 				}
 				// the cards do not match, so start the timer to turn them down
 				else { 
 					this.getTurnDownTimer().start();
+					//Penalty for mismatch
 					this.getMainFrame().setScore(score -=5);
 				}
 			}

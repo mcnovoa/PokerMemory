@@ -18,7 +18,6 @@ public class FlushLevel extends RankTrioLevel {
 		return "FlushMode";
 	}
 	
-
 	public long getScore() {
 		return score;
 	}
