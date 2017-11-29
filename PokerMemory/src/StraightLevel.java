@@ -93,7 +93,6 @@ public class StraightLevel extends FlushLevel {
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
 				}
-
 			}
 			return true;
 		}
