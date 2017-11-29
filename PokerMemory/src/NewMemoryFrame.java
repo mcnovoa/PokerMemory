@@ -14,7 +14,6 @@ public class NewMemoryFrame extends MemoryFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 5074343438278317645L;
-    private ScoreManagement scoreMan;
     
 	public NewMemoryFrame() {
 		super();
@@ -69,11 +68,10 @@ public class NewMemoryFrame extends MemoryFrame {
 		else {
 			super.newGame(difficultyMode);
 		}
-		scoreMan = new ScoreManagement(this);
 	}
 
-	public ScoreManagement getScoreMan() {
-		return scoreMan;
+	public void updateScore() {
+		this.setScore(0);
 	}
 	
 }

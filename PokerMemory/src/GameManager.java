@@ -30,7 +30,6 @@ public class GameManager {
 			instance.setScore(0);
 
 			while(!instance.gameOver()) {
-				instance.setScore(instance.getScoreMan().getScore());
 				Thread.sleep(500);
 			}
 			playMore = JOptionPane.showConfirmDialog(null, "Play Again?", "GAME OVER!!!", JOptionPane.YES_NO_OPTION);

@@ -153,9 +153,6 @@ public class MemoryFrame extends JFrame {
 		panel_1.add(horizontalStrut_3);
 	}
 
-	public GameLevel getDifficulty(){
-		return this.difficulty;
-	}
 	public TurnsTakenCounterLabel getTurnCounterLabel() {
 		return turnCounterLabel;
 	}
