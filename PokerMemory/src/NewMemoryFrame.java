@@ -68,10 +68,5 @@ public class NewMemoryFrame extends MemoryFrame {
 		else {
 			super.newGame(difficultyMode);
 		}
-	}
-
-	public void updateScore() {
-		this.setScore(0);
-	}
-	
+	}	
 }
