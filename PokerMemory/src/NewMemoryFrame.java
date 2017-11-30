@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class NewMemoryFrame extends MemoryFrame {
 				try {
 					if(e.getActionCommand().equals("Flush")) newGame("flush");
 					if(e.getActionCommand().equals("Straight")) newGame("straight");
+					if(e.getActionCommand().equals("Combo")) newGame("combo");
 				} catch (IOException e2) {
 					e2.printStackTrace(); throw new RuntimeException("IO ERROR");
 				}
@@ -44,7 +46,10 @@ public class NewMemoryFrame extends MemoryFrame {
 		JMenuItem straightMenuItem = new JMenuItem("Straight");
 		straightMenuItem.addActionListener(menuHandler);
 		memoryMenu.add(straightMenuItem);
-
+		
+		JMenuItem comboMenuItem = new JMenuItem("Combo");
+		comboMenuItem.addActionListener(menuHandler);
+		memoryMenu.add(comboMenuItem);
 
 	}
 
@@ -81,6 +86,20 @@ public class NewMemoryFrame extends MemoryFrame {
 			// clear out the content pane (removes turn counter label and card field)
 			BorderLayout b2  = (BorderLayout) this.getContentPane().getLayout();
 			this.getContentPane().remove(b2.getLayoutComponent(BorderLayout.CENTER));
+			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+
+			// show the window (in case this is the first game)
+			this.setVisible(true);
+		}
+		
+		if(difficultyMode.equalsIgnoreCase("combo")) {
+			this.setGameLevel(new ComboLevel(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Combo");
+			this.getTurnCounterLabel().reset();
+
+			// clear out the content pane (removes turn counter label and card field)
+			BorderLayout b3  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b3.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
