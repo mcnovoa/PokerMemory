@@ -40,12 +40,21 @@ public class NewMemoryFrame extends MemoryFrame {
 					if(e.getActionCommand().equals("Flush")) newGame("flush");
 					else if(e.getActionCommand().equals("Straight")) newGame("straight");
 					else if(e.getActionCommand().equals("Combo")) newGame("combo");
+					else if(e.getActionCommand().equals("Equal Pair Level")) newGame("equalpair");
 					else if(e.getActionCommand().equals("How To Play")) showInstructions();
 				} catch (IOException e2) {
 					e2.printStackTrace(); throw new RuntimeException("IO ERROR");
 				}
 			}
 		};
+		
+		//Remove original levels from Memory Frame
+		memoryMenu.removeAll();
+		
+		//Add extended and original levels
+		JMenuItem equalPairMenuItem = new JMenuItem("Equal Pair Level");
+		equalPairMenuItem.addActionListener(menuHandler);
+		memoryMenu.add(equalPairMenuItem);
 
 		JMenuItem flushMenuItem = new JMenuItem("Flush");
 		flushMenuItem.addActionListener(menuHandler);
@@ -81,15 +90,28 @@ public class NewMemoryFrame extends MemoryFrame {
 		this.getTurnCounterLabel().reset();
 
 		// make a new card field with cards, and add it to the window
-
-		if(difficultyMode.equalsIgnoreCase("flush")) {
-			this.setGameLevel(new FlushLevel(this.getTurnCounterLabel(), this));
-			this.getLevelDescriptionLabel().setText("Flush Level");
+		if(difficultyMode.equalsIgnoreCase("equalpair")) {
+			this.setGameLevel(new EqualPairLevelScored(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Equal Pair Level");
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
 			BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
 			this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
+			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+
+			// show the window (in case this is the first game)
+			this.setVisible(true);
+		}
+
+		else if(difficultyMode.equalsIgnoreCase("flush")) {
+			this.setGameLevel(new FlushLevel(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Flush Level");
+			this.getTurnCounterLabel().reset();
+
+			// clear out the content pane (removes turn counter label and card field)
+			BorderLayout b2  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b2.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
@@ -102,8 +124,8 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
-			BorderLayout b2  = (BorderLayout) this.getContentPane().getLayout();
-			this.getContentPane().remove(b2.getLayoutComponent(BorderLayout.CENTER));
+			BorderLayout b3  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b3.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
@@ -116,8 +138,8 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
-			BorderLayout b3  = (BorderLayout) this.getContentPane().getLayout();
-			this.getContentPane().remove(b3.getLayoutComponent(BorderLayout.CENTER));
+			BorderLayout b4  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b4.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
