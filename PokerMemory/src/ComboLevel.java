@@ -52,7 +52,8 @@ public class ComboLevel extends StraightLevel {
 
 				Arrays.sort(bufferArr);
 
-				if(bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3]){
+				if(bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3]
+						|| (bufferArr[1] == bufferArr[2] && bufferArr[2] == bufferArr[3] && bufferArr[3] == bufferArr[4])){
 
 					this.getTurnedCardsBuffer().clear();
 				}
@@ -66,11 +67,11 @@ public class ComboLevel extends StraightLevel {
 		}
 		return false;
 	}
-//	private void successScoreUpdate(Card card){
-//
-//		if(super.turnUp(card) == true || flush.turnUp(card) == true || this.turnUp(card) == true){
-//
-//		}
-//	}
+		private void successScoreUpdate(Card card){
+	
+			if(this.turnUp(card) == true){
+				
+			}
+		}
 
 }

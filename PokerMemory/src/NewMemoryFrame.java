@@ -66,7 +66,7 @@ public class NewMemoryFrame extends MemoryFrame {
 
 		if(difficultyMode.equalsIgnoreCase("flush")) {
 			this.setGameLevel(new FlushLevel(this.getTurnCounterLabel(), this));
-			this.getLevelDescriptionLabel().setText("Flush");
+			this.getLevelDescriptionLabel().setText("Flush Level");
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
@@ -78,9 +78,9 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.setVisible(true);
 		}
 
-		if(difficultyMode.equalsIgnoreCase("straight")) {
+		else if(difficultyMode.equalsIgnoreCase("straight")) {
 			this.setGameLevel(new StraightLevel(this.getTurnCounterLabel(), this));
-			this.getLevelDescriptionLabel().setText("Straight");
+			this.getLevelDescriptionLabel().setText("Straight Level");
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
@@ -92,9 +92,9 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.setVisible(true);
 		}
 		
-		if(difficultyMode.equalsIgnoreCase("combo")) {
+		else if(difficultyMode.equalsIgnoreCase("combo")) {
 			this.setGameLevel(new ComboLevel(this.getTurnCounterLabel(), this));
-			this.getLevelDescriptionLabel().setText("Combo");
+			this.getLevelDescriptionLabel().setText("Combo Level");
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
