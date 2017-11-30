@@ -8,8 +8,7 @@ public class ComboLevel extends StraightLevel {
 
 	private FlushLevel flush;
 	private long score;
-	private MemoryFrame mem;
-	
+
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		// TODO Auto-generated constructor stub
@@ -73,15 +72,12 @@ public class ComboLevel extends StraightLevel {
 	}
 	private void optionPanel(Card a, Card b){
 		Object[] options = { "Straight", "Flush", "Fourth of a Kind" , "Pass"};
-		
-			
-		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", "Great!", 
-				JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE, null, options,options[0]);
-		mem.dprintln(" " + playMore);
-		
-	}
-	
-	private void chooseScore(Card a, Card b){
-		
+
+
+		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", 
+				"Great, you found a hand!", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,
+				null, options,options[0]);
+		MemoryFrame.dprintln(" " + playMore);
+
 	}
 }
