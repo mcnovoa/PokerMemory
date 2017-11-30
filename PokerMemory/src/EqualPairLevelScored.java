@@ -13,7 +13,7 @@ public class EqualPairLevelScored extends EqualPairLevel {
 
 	private long score;
 	
-	public EqualPairLevelScored(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
+	protected EqualPairLevelScored(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		this.score = 0;
 	}

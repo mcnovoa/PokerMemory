@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class RankTrioLevel extends EqualPairLevel {
-	private long score;
 
 	// TRIO LEVEL: The goal is to find, on each turn, three cards with the same rank
 
@@ -21,7 +20,6 @@ public class RankTrioLevel extends EqualPairLevel {
 		this.setCardsToTurnUp(3);
 		this.setCardsPerRow(10);
 		this.setRowsPerGrid(5);
-		this.score = 0;
 	}
 
 	@Override
@@ -70,15 +68,11 @@ public class RankTrioLevel extends EqualPairLevel {
 				if((card.getRank().equals(otherCard1.getRank())) && (card.getRank().equals(otherCard2.getRank()))) {
 					// Three cards match, so remove them from the list (they will remain face up)
 					this.getTurnedCardsBuffer().clear();
-					//Calculate and update points for a match.
-					this.getMainFrame().setScore(score += 100 + ScoreManagement.sumOfRanks(card, otherCard1, otherCard2));
 				}
 				else
 				{
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
-					// Penalty of five point for mismatch.
-					this.getMainFrame().setScore(score -=5);
 				}
 			}
 			return true;

@@ -40,7 +40,8 @@ public class NewMemoryFrame extends MemoryFrame {
 					if(e.getActionCommand().equals("Flush")) newGame("flush");
 					else if(e.getActionCommand().equals("Straight")) newGame("straight");
 					else if(e.getActionCommand().equals("Combo")) newGame("combo");
-					else if(e.getActionCommand().equals("Equal Pair Level")) newGame("equalpair");
+					else if(e.getActionCommand().equals("Equal Pair")) newGame("equalpair");
+					else if(e.getActionCommand().equals("Same Rank Trio")) newGame("ranktrio");
 					else if(e.getActionCommand().equals("How To Play")) showInstructions();
 				} catch (IOException e2) {
 					e2.printStackTrace(); throw new RuntimeException("IO ERROR");
@@ -52,9 +53,13 @@ public class NewMemoryFrame extends MemoryFrame {
 		memoryMenu.removeAll();
 		
 		//Add extended and original levels
-		JMenuItem equalPairMenuItem = new JMenuItem("Equal Pair Level");
+		JMenuItem equalPairMenuItem = new JMenuItem("Equal Pair");
 		equalPairMenuItem.addActionListener(menuHandler);
 		memoryMenu.add(equalPairMenuItem);
+		
+		JMenuItem sameRankTrioMenuItem = new JMenuItem("Same Rank Trio");
+		sameRankTrioMenuItem.addActionListener(menuHandler);		
+		memoryMenu.add(sameRankTrioMenuItem);
 
 		JMenuItem flushMenuItem = new JMenuItem("Flush");
 		flushMenuItem.addActionListener(menuHandler);
@@ -96,8 +101,22 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
-			BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
-			this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
+			BorderLayout b  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b.getLayoutComponent(BorderLayout.CENTER));
+			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+
+			// show the window (in case this is the first game)
+			this.setVisible(true);
+		}
+		
+		else if(difficultyMode.equalsIgnoreCase("ranktrio")) {
+			this.setGameLevel(new RankTrioLevelScored(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Rank Trio Level");
+			this.getTurnCounterLabel().reset();
+
+			// clear out the content pane (removes turn counter label and card field)
+			BorderLayout b  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
@@ -110,8 +129,8 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
-			BorderLayout b2  = (BorderLayout) this.getContentPane().getLayout();
-			this.getContentPane().remove(b2.getLayoutComponent(BorderLayout.CENTER));
+			BorderLayout b  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
@@ -124,8 +143,8 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
-			BorderLayout b3  = (BorderLayout) this.getContentPane().getLayout();
-			this.getContentPane().remove(b3.getLayoutComponent(BorderLayout.CENTER));
+			BorderLayout b  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
@@ -138,8 +157,8 @@ public class NewMemoryFrame extends MemoryFrame {
 			this.getTurnCounterLabel().reset();
 
 			// clear out the content pane (removes turn counter label and card field)
-			BorderLayout b4  = (BorderLayout) this.getContentPane().getLayout();
-			this.getContentPane().remove(b4.getLayoutComponent(BorderLayout.CENTER));
+			BorderLayout b  = (BorderLayout) this.getContentPane().getLayout();
+			this.getContentPane().remove(b.getLayoutComponent(BorderLayout.CENTER));
 			this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
 
 			// show the window (in case this is the first game)
@@ -153,7 +172,7 @@ public class NewMemoryFrame extends MemoryFrame {
 	{
 		dprintln("MemoryGame.showInstructions()");
 		final String HOWTOPLAYTEXT = 
-				"How To Play Test\r\n" +
+				"How To Play\r\n" +
 						"\r\n" +
 						"EQUAL PAIR Level\r\n"+
 						"The game consists of 8 pairs of cards.  At the start of the game,\r\n"+
