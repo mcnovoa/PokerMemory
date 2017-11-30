@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class NewMemoryFrame extends MemoryFrame {
 
@@ -157,7 +160,12 @@ public class NewMemoryFrame extends MemoryFrame {
 						"Each time you flip two cards up, the turn counter will\r\n"+
 						"increase.  Try to win the game in the fewest number of turns!";
 
-		JOptionPane.showMessageDialog(this, HOWTOPLAYTEXT
-				, "How To Play", JOptionPane.PLAIN_MESSAGE);
+		//Provides a scroll panel to show all the instructions.
+		JTextArea instructionsTextArea = new JTextArea(HOWTOPLAYTEXT);
+		JScrollPane scrollPane = new JScrollPane(instructionsTextArea);  
+		instructionsTextArea.setLineWrap(true);  
+		instructionsTextArea.setWrapStyleWord(true); 
+		scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+		JOptionPane.showMessageDialog(null, scrollPane, "How To Play",JOptionPane.PLAIN_MESSAGE);
 	}
 }
