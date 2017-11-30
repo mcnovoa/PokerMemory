@@ -13,12 +13,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class EqualPairLevel extends EasyLevel {
-	private long score;
+
 
 	protected EqualPairLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		super.getTurnsTakenCounter().setDifficultyModeLabel("Medium Level");
-		this.score = 0;
 	}
 	
 	@Override
@@ -80,14 +79,10 @@ public class EqualPairLevel extends EasyLevel {
 				if( otherCard.getNum() == card.getNum()) 
 				{
 					this.getTurnedCardsBuffer().clear();
-					//Add points for match
-				    this.getMainFrame().setScore(score +=50);
 				}
 				// the cards do not match, so start the timer to turn them down
 				else { 
 					this.getTurnDownTimer().start();
-					//Penalty for mismatch
-					this.getMainFrame().setScore(score -=5);
 				}
 			}
 			return true;
