@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class NewMemoryFrame extends MemoryFrame {
 
@@ -20,10 +21,13 @@ public class NewMemoryFrame extends MemoryFrame {
 		super();
 		JMenuBar menuBar = this.getJMenuBar();
 		JMenu memoryMenu = null;
+		JMenu helpMenu = null;
 		for (int i = 0; i < menuBar.getMenuCount(); i++) {
 			if (menuBar.getMenu(i).getText().equals("Memory")) {
 				memoryMenu = menuBar.getMenu(i);
-				break;
+			}
+			else if(menuBar.getMenu(i).getText().equals("Help")){
+				helpMenu = menuBar.getMenu(i);
 			}
 		}
 
@@ -31,8 +35,9 @@ public class NewMemoryFrame extends MemoryFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(e.getActionCommand().equals("Flush")) newGame("flush");
-					if(e.getActionCommand().equals("Straight")) newGame("straight");
-					if(e.getActionCommand().equals("Combo")) newGame("combo");
+					else if(e.getActionCommand().equals("Straight")) newGame("straight");
+					else if(e.getActionCommand().equals("Combo")) newGame("combo");
+					else if(e.getActionCommand().equals("How To Play")) showInstructions();
 				} catch (IOException e2) {
 					e2.printStackTrace(); throw new RuntimeException("IO ERROR");
 				}
@@ -50,7 +55,17 @@ public class NewMemoryFrame extends MemoryFrame {
 		JMenuItem comboMenuItem = new JMenuItem("Combo");
 		comboMenuItem.addActionListener(menuHandler);
 		memoryMenu.add(comboMenuItem);
-
+		
+		//Remove original HelpMenu Items to replace with updated ones.
+		helpMenu.removeAll();
+		
+		//Add new Help Page
+		JMenuItem newHelpPage = new JMenuItem("How To Play");
+		newHelpPage.addActionListener(menuHandler);
+		helpMenu.add(newHelpPage);
+		
+		//Change Background Color, Sets Border to Orange.
+		this.getContentPane().setBackground(Color.ORANGE);
 	}
 
 	/**
@@ -108,5 +123,41 @@ public class NewMemoryFrame extends MemoryFrame {
 		else {
 			super.newGame(difficultyMode);
 		}
-	}	
+	}
+	private void showInstructions()
+	{
+		dprintln("MemoryGame.showInstructions()");
+		final String HOWTOPLAYTEXT = 
+				"How To Play Test\r\n" +
+						"\r\n" +
+						"EQUAL PAIR Level\r\n"+
+						"The game consists of 8 pairs of cards.  At the start of the game,\r\n"+
+						"every card is face down.  The object is to find all the pairs and\r\n"+
+						"turn them face up.\r\n"+
+						"\r\n"+
+						"Click on two cards to turn them face up. If the cards are the \r\n"+
+						"same, then you have discovered a pair.  The pair will remain\r\n"+
+						"turned up.  If the cards are different, they will flip back\r\n"+
+						"over automatically after a short delay.  Continue flipping\r\n"+
+						"cards until you have discovered all of the pairs.  The game\r\n"+
+						"is won when all cards are face up.\r\n"+
+						"\r\n"+
+						"SAME RANK TRIO Level\r\n"+
+						"The game consists of a grid of distinct cards.  At the start of the game,\r\n"+
+						"every card is face down.  The object is to find all the trios \r\n"+
+						"of cards with the same rank and turn them face up.\r\n"+
+						"\r\n"+
+						"Click on three cards to turn them face up. If the cards have the \r\n"+
+						"same rank, then you have discovered a trio.  The trio will remain\r\n"+
+						"turned up.  If the cards are different, they will flip back\r\n"+
+						"over automatically after a short delay.  Continue flipping\r\n"+
+						"cards until you have discovered all of the pairs.  The game\r\n"+
+						"is won when all cards are face up.\r\n"+
+						"\r\n"+
+						"Each time you flip two cards up, the turn counter will\r\n"+
+						"increase.  Try to win the game in the fewest number of turns!";
+
+		JOptionPane.showMessageDialog(this, HOWTOPLAYTEXT
+				, "How To Play", JOptionPane.PLAIN_MESSAGE);
+	}
 }
