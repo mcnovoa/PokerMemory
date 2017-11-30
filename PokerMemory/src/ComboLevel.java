@@ -1,12 +1,14 @@
 import java.util.Arrays;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ComboLevel extends StraightLevel {
 
 	private FlushLevel flush;
 	private long score;
-
+	private MemoryFrame mem;
+	
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		// TODO Auto-generated constructor stub
@@ -52,10 +54,11 @@ public class ComboLevel extends StraightLevel {
 
 				Arrays.sort(bufferArr);
 
-				if(bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3]
-						|| (bufferArr[1] == bufferArr[2] && bufferArr[2] == bufferArr[3] && bufferArr[3] == bufferArr[4])){
-
+				if((bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3])
+						|| (bufferArr[1] == bufferArr[2] && bufferArr[2] == bufferArr[3] && bufferArr[3] == bufferArr[4]) 
+						){
 					this.getTurnedCardsBuffer().clear();
+					this.successScoreUpdate(otherCard4,card);
 				}
 				else{
 					// The cards do not match, so start the timer to turn them down
@@ -67,11 +70,12 @@ public class ComboLevel extends StraightLevel {
 		}
 		return false;
 	}
-		private void successScoreUpdate(Card card){
-	
-			if(this.turnUp(card) == true){
-				
-			}
-		}
+	private void successScoreUpdate(Card a, Card b){
 
+		
+			
+		int playMore = JOptionPane.showConfirmDialog(null, "You have the following poker hands, choose wisely:");
+		mem.dprintln(" " + playMore);
+		
+	}
 }
