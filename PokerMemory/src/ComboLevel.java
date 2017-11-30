@@ -60,7 +60,6 @@ public class ComboLevel extends StraightLevel {
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
 					this.getMainFrame().setScore(score -= 5);
-
 				}
 			}
 			return true;
