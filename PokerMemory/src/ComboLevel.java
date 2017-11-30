@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -53,12 +54,12 @@ public class ComboLevel extends StraightLevel {
 				bufferArr[4] = ScoreManagement.returnRankValue(card);
 
 				Arrays.sort(bufferArr);
-
-				if((bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3])
+				//implements a fourth of a kind hand
+				if((bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3] && card.isFaceUp())
 						|| (bufferArr[1] == bufferArr[2] && bufferArr[2] == bufferArr[3] && bufferArr[3] == bufferArr[4]) 
 						){
 					this.getTurnedCardsBuffer().clear();
-					this.successScoreUpdate(otherCard4,card);
+					this.optionPanel(otherCard4,card);
 				}
 				else{
 					// The cards do not match, so start the timer to turn them down
@@ -70,12 +71,17 @@ public class ComboLevel extends StraightLevel {
 		}
 		return false;
 	}
-	private void successScoreUpdate(Card a, Card b){
-
+	private void optionPanel(Card a, Card b){
+		Object[] options = { "Straight", "Flush", "Fourth of a Kind" , "Pass"};
 		
 			
-		int playMore = JOptionPane.showConfirmDialog(null, "You have the following poker hands, choose wisely:");
+		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", "Great!", 
+				JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE, null, options,options[0]);
 		mem.dprintln(" " + playMore);
+		
+	}
+	
+	private void chooseScore(Card a, Card b){
 		
 	}
 }
