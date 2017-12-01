@@ -22,37 +22,37 @@ public class StraightLevel extends FlushLevel {
 		return score;
 	}
 	
-	protected boolean isGameOver(Card a, Card b, Card c, Card d, Card e) {
-		
-		Card[] newArr = new Card[this.getGrid().size()];
-
-		for (int i = 0; i < newArr.length ; i++) {
-			if(!(this.getGrid().get(i).isFaceUp())){
-				a = this.getGrid().get(i);
-			}
-			else if (!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a)){
-				b = this.getGrid().get(i);
-			}
-			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) && (this.getGrid().get(i) != b)){
-				c = this.getGrid().get(i);
-			}
-			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
-				&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c)){
-				d = this.getGrid().get(i);
-			}
-			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
-					&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c) 
-					&& (this.getGrid().get(i) != d)){
-				e = this.getGrid().get(i);
-			}
-		}
-
-		if(ComboLevel.isStraight(a, b, c, d, e, this)){
-			return false;
-		}
-
-		return true;
-	}
+//	protected boolean isGameOver(Card a, Card b, Card c, Card d, Card e) {
+//		
+//		Card[] newArr = new Card[this.getGrid().size()];
+//
+//		for (int i = 0; i < newArr.length ; i++) {
+//			if(!(this.getGrid().get(i).isFaceUp())){
+//				a = this.getGrid().get(i);
+//			}
+//			else if (!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a)){
+//				b = this.getGrid().get(i);
+//			}
+//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) && (this.getGrid().get(i) != b)){
+//				c = this.getGrid().get(i);
+//			}
+//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
+//				&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c)){
+//				d = this.getGrid().get(i);
+//			}
+//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
+//					&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c) 
+//					&& (this.getGrid().get(i) != d)){
+//				e = this.getGrid().get(i);
+//			}
+//		}
+//
+//		if(ComboLevel.isStraight(a, b, c, d, e, this)){
+//			return false;
+//		}
+//
+//		return true;
+//	}
 
 	@Override
 	protected boolean turnUp(Card card) {
