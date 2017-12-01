@@ -8,6 +8,7 @@
  * @version Nov 2017
  */
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class EqualPairLevelScored extends EqualPairLevel {
 
@@ -53,12 +54,12 @@ public class EqualPairLevelScored extends EqualPairLevel {
 	
 	@Override
 	protected boolean  isGameOver(){
-
-		for (int i =0; i< this.getGrid().size();i++)
-			if(!this.getGrid().get(i).isFaceUp()) return false;
-
-
-		return true;
+		if(super.isGameOver()){
+			String GameOver = "Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
+			return true;
+		}
+		return false;
 	}
 
 }
