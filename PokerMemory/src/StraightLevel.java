@@ -22,7 +22,6 @@ public class StraightLevel extends FlushLevel {
 	public long getScore() {
 		return score;
 	}
-
 	
 	protected boolean isGameOver(Card a, Card b, Card c, Card d, Card e) {
 		
