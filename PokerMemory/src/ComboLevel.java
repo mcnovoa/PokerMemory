@@ -76,59 +76,62 @@ public class ComboLevel extends StraightLevel {
 		return playMore;
 	}
 
-	public static boolean isStraight(int a, int b, int c, int d,int e, StraightLevel level){
+	public static boolean isStraight(Card a, Card b, Card c, Card d, Card e, StraightLevel level){
 
 		int[] bufferArr = new int[level.getTurnedCardsBuffer().size()];
 
-		bufferArr[0] = a;
-		bufferArr[1] = b;
-		bufferArr[2] = c;
-		bufferArr[3] = d;
-		bufferArr[4] = e;
-
+		bufferArr[0] = ScoreManagement.returnRankValue(a);
+		bufferArr[1] = ScoreManagement.returnRankValue(b);
+		bufferArr[2] = ScoreManagement.returnRankValue(c);
+		bufferArr[3] = ScoreManagement.returnRankValue(d);
+		bufferArr[4] = ScoreManagement.returnRankValue(e);
+		
 		Arrays.sort(bufferArr);
+		
+		if((e.getSuit() != a.getSuit()) || (e.getSuit() != b.getSuit()) || 
+				(e.getSuit() != c.getSuit()) || (e.getSuit() != d.getSuit()) ){
 
-		//General Instruction
-		if((bufferArr[1] == bufferArr[0] + 1) && (bufferArr[2] == bufferArr[0] + 2)
-				&& (bufferArr[3] == bufferArr[0] + 3 ) && (bufferArr[4] == bufferArr[0] + 4)){
-			return true;
+			//General Instruction
+			if((bufferArr[1] == bufferArr[0] + 1) && (bufferArr[2] == bufferArr[0] + 2)
+					&& (bufferArr[3] == bufferArr[0] + 3 ) && (bufferArr[4] == bufferArr[0] + 4)){
+				return true;
+			}
+
+			//Case #1: If otherCard1's rank is "t"
+
+			if((bufferArr[0] == 10) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
+					&& bufferArr[4] == 20){
+				return true;
+			}
+
+			//Case #2: If otherCard1's rank is "j"
+
+			if((bufferArr[0] == 2) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
+					&& bufferArr[4] == 20){
+				return true;
+			}
+
+			//Case #3: If otherCard1's rank is "q"
+
+			if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
+					&& bufferArr[4] == 20){
+				return true;
+			}
+
+			//Case #4: If otherCard1's rank is "k"
+
+			if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4) && (bufferArr[3] == 13)
+					&& bufferArr[4] == 20){
+				return true;
+			}
+
+			//Case #: If otherCard1's rank is "a"
+
+			if((bufferArr[4] == 20) && (bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4)
+					&& bufferArr[3] == 5){
+				return true;
+			}
 		}
-
-		//Case #1: If otherCard1's rank is "t"
-
-		if((bufferArr[0] == 10) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
-				&& bufferArr[4] == 20){
-			return true;
-		}
-
-		//Case #2: If otherCard1's rank is "j"
-
-		if((bufferArr[0] == 2) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
-				&& bufferArr[4] == 20){
-			return true;
-		}
-
-		//Case #3: If otherCard1's rank is "q"
-
-		if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
-				&& bufferArr[4] == 20){
-			return true;
-		}
-
-		//Case #4: If otherCard1's rank is "k"
-
-		if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4) && (bufferArr[3] == 13)
-				&& bufferArr[4] == 20){
-			return true;
-		}
-
-		//Case #: If otherCard1's rank is "a"
-
-		if((bufferArr[4] == 20) && (bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4)
-				&& bufferArr[3] == 5){
-			return true;
-		}
-
 		return false;
 	}
 
@@ -174,8 +177,7 @@ public class ComboLevel extends StraightLevel {
 
 		//Straight Hand Validation
 
-		if(ComboLevel.isStraight(bufferArr[0],bufferArr[1],bufferArr[2],
-				bufferArr[3],bufferArr[4], this)){
+		if(ComboLevel.isStraight(a,b,c,d,e, this)){
 
 			switch(this.optionPanel()){
 			case 0:
