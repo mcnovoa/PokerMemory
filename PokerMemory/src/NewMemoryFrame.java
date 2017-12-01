@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -177,32 +178,58 @@ public class NewMemoryFrame extends MemoryFrame {
 	private void showInstructions()
 	{
 		dprintln("MemoryGame.showInstructions()");
-		final String HOWTOPLAYTEXT = 
-				"<p><strong>ALL LEVELS: Poker Memory</strong></p>"+
-				"<p>Each time you flip a set of cards up, the turn counter will increase. Try to win the game in the fewest number of turns! Each unsuccessful turn will result in a penalty of 5 points and is possible to get a negative score in this game.</p>"+
-				"<p><strong>EQUAL PAIR Level </strong></p>"+
-				"<p>The game consists of 8 pairs of cards.&nbsp; At the start of the game every card is face down.&nbsp; The object is to find all the pairs and turn them face up. Click on two cards to turn them face up. If the cards are the same, then you have discovered a pair.&nbsp; The pair will remain turned up.&nbsp; If the cards are different, they will flip back over automatically after a short delay.&nbsp; Continue flipping cards until you have discovered all the pairs.&nbsp; The game is won when all cards are face up.&nbsp;</p>"+
-				"<p><strong>SAME RANK TRIO Level</strong></p>"+
-				"<p>The game consists of a grid of distinct cards.&nbsp; At the start of the game, every card is face down.&nbsp; The object is to find all the trios of cards with the same rank and turn them face up. Click on three cards to turn them face up. If the cards have the same rank, then you have discovered a trio.&nbsp; The trio will remain turned up.&nbsp; If the cards are different, they will flip back over automatically after a short delay.&nbsp; Continue flipping cards until you have discovered all the pairs.&nbsp; The game is won when all cards are face up.</p>"+
-				"<p><strong>FLUSH Level</strong></p>"+
-				"<p>The game consists of a grid of distinct cards.&nbsp; At the start of the game, every card is face down.&nbsp; The objective is to find all the combinations of five cards with the same suit and turn them face up. You will get 100 points plus the sum of the ranks for each combination found and the cards will remain turned up. If the cards chosen are not a combination, they will flip back over automatically. The game ends when all cards are flipped up or no combinations are possible.</p>"+
-				"<p><strong>STRAIGHT Level</strong></p>"+
-				"<p>The game consists of a grid of distinct cards.&nbsp; At the start of the game, every card is face down. Players uncover five cards on each turn. A wining hand consists of all five cards in sequence with at least two distinct suits. The score for each hand is computed as 1000 points plus 100 times the rank of the highest card in the sequence. The game ends when all cards are flipped up or no combinations are possible.&nbsp;</p>"+
-				"<p><strong>COMBO Level</strong></p>"+
-				"<p>The objective of this level is to get the highest score possible by selecting poker hands of five cards. You will get the option of choosing either a flush, straight or a four of a kind. &nbsp;Flush occurs when five cards have the same suit, the score will be the sum of the ranks in the hand plus 100. Straight consists on all five cards in sequence with at least two distinct suits, the score being 500 points plus the rank of the highest card squared. Four of a kind consists on choosing four cards with equal rank in your hand of five, as the hardest hand in this level, the score is 100 times the rank of the quartet of cards plus 4 times the rank of the remaining card. Also, you may choose to PASS, a move that will cover the cards again, giving you the opportunity to uncover a higher scoring hand in future turns.</p>;";
+		final String HOWTOPLAYTEXT = "ALL LEVELS: Poker Memory\r\n\r\n"+
+				"Each time you flip a set of cards up, the turn counter will increase. Try to win the game in the fewest number of turns!"+
+				"Each unsuccessful turn will result in a penalty of 5 points and is possible to get a negative score in this game.\r\n\r\n"+
+				
+				"EQUAL PAIR Level\r\n\r\n"+ 
+				"The game consists of 8 pairs of cards.  At the start of the game every card is face down."+
+				"The object is to find all the pairs and turn them face up. Click on two cards to turn them face up."+
+				" If the cards are the same, then you have discovered a pair. The pair will remain turned up."+
+				"If the cards are different, they will flip back over automatically after a short delay."+
+				"Continue flipping cards until you have discovered all the pairs.  The game is won when all cards are face up. \r\n\r\n"+ 
+				
+				"SAME RANK TRIO Level\r\n\r\n"+
+				
+				"The game consists of a grid of distinct cards.  At the start of the game, every card is face down."+
+				 "The object is to find all the trios of cards with the same rank and turn them face up. Click on three cards to turn them face up."+
+				"If the cards have the same rank, then you have discovered a trio.  The trio will remain turned up.  If the cards are different,"+
+				" they will flip back over automatically after a short delay.  Continue flipping cards until you have discovered all the pairs."+
+				" The game is won when all cards are face up.\r\n\r\n"+
+				
+				"FLUSH Level\r\n\r\n"+
+				
+				"The game consists of a grid of distinct cards.  At the start of the game, every card is face down."+
+				" The objective is to find all the combinations of five cards with the same suit and turn them face up."+
+				" You will get 100 points plus the sum of the ranks for each combination found and the cards will remain turned up."+
+				" If the cards chosen are not a combination, they will flip back over automatically."+
+				" The game ends when all cards are flipped up or no combinations are possible.\r\n\r\n"+
+				
+				"STRAIGHT Level\r\n\r\n"+
+				
+				"The game consists of a grid of distinct cards.  At the start of the game, every card is face down."+
+				" Players uncover five cards on each turn. A wining hand consists of all five cards in sequence with at least two distinct suits."+
+				" The score for each hand is computed as 1000 points plus 100 times the rank of the highest card in the sequence."+
+				 "The game ends when all cards are flipped up or no combinations are possible. \r\n\r\n"+ 
+				
+				 "COMBO Level\r\n\r\n"+
+				
+				 "The objective of this level is to get the highest score possible by selecting poker hands of five cards."+
+				" You will get the option of choosing either a flush, straight or a four of a kind."+
+				" Flush occurs when five cards have the same suit, the score will be the sum of the ranks in the hand plus 100."+
+				" Straight consists on all five cards in sequence with at least two distinct suits, the score being 500 points"+
+				" plus the rank of the highest card squared. Four of a kind consists on choosing four cards with equal rank in your hand of five,"+
+				" as the hardest hand in this level, the score is 100 times the rank of the quartet of cards plus 4 times the rank of the remaining card."+
+				"Also, you may choose to PASS, a move that will cover the cards again, giving you the opportunity to uncover a higher scoring hand in future turns.\r\n";
 
-		//Provides a scroll panel to show all the instructions.
-//		JTextArea instructionsTextArea = new JTextArea(HOWTOPLAYTEXT);
-//		JScrollPane scrollPane = new JScrollPane(instructionsTextArea);  
-//		instructionsTextArea.setLineWrap(true);  
-//		instructionsTextArea.setWrapStyleWord(true); 
-//		scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
-//		JOptionPane.showMessageDialog(null, scrollPane, "How To Play",JOptionPane.PLAIN_MESSAGE);'
-		String htmlMsg = "<html>"+HOWTOPLAYTEXT+"</html>";
-
-		JOptionPane dialogBox = new JOptionPane();
-		dialogBox.setMessage(htmlMsg);
-		dialogBox.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+		//Provides a scroll panel to show all the instructions neatly.
+		JTextArea instructionsTextArea = new JTextArea(HOWTOPLAYTEXT);
+		JScrollPane scrollPane = new JScrollPane(instructionsTextArea);  
+		instructionsTextArea.setLineWrap(true);  
+		instructionsTextArea.setWrapStyleWord(true); 
+		scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+		
+		JOptionPane.showMessageDialog(null, scrollPane, "How To Play",JOptionPane.PLAIN_MESSAGE);
 	}
 	private void showAbout()
 	{
