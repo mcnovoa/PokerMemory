@@ -25,37 +25,37 @@ public class StraightLevel extends FlushLevel {
 		return score;
 	}
 	
-	protected boolean isGameOver(Card a, Card b, Card c, Card d, Card e) {
-		
-		Card[] newArr = new Card[this.getGrid().size()];
-
-		for (int i = 0; i < newArr.length ; i++) {
-			if(!(this.getGrid().get(i).isFaceUp())){
-				a = this.getGrid().get(i);
-			}
-			else if (!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a)){
-				b = this.getGrid().get(i);
-			}
-			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) && (this.getGrid().get(i) != b)){
-				c = this.getGrid().get(i);
-			}
-			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
-				&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c)){
-				d = this.getGrid().get(i);
-			}
-			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
-					&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c) 
-					&& (this.getGrid().get(i) != d)){
-				e = this.getGrid().get(i);
-			}
-		}
-
-		if(ComboLevel.isStraight(a, b, c, d, e, this)){
-			return false;
-		}
-
-		return true;
-	}
+//	protected boolean isGameOver(Card a, Card b, Card c, Card d, Card e) {
+//		
+//		Card[] newArr = new Card[this.getGrid().size()];
+//
+//		for (int i = 0; i < newArr.length ; i++) {
+//			if(!(this.getGrid().get(i).isFaceUp())){
+//				a = this.getGrid().get(i);
+//			}
+//			else if (!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a)){
+//				b = this.getGrid().get(i);
+//			}
+//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) && (this.getGrid().get(i) != b)){
+//				c = this.getGrid().get(i);
+//			}
+//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
+//				&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c)){
+//				d = this.getGrid().get(i);
+//			}
+//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
+//					&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c) 
+//					&& (this.getGrid().get(i) != d)){
+//				e = this.getGrid().get(i);
+//			}
+//		}
+//
+//		if(ComboLevel.isStraight(a, b, c, d, e, this)){
+//			return false;
+//		}
+//
+//		return true;
+//	}
 
 	@Override
 	protected boolean turnUp(Card card) {
@@ -175,31 +175,23 @@ public class StraightLevel extends FlushLevel {
 		
 	//Find the total number of valid combinations in the grid.
 	public int straightCombinationsLeft() {
-		boolean[] rankExistance = new boolean[13];
-		int combinations = 0;
-		//Get if there are cards facedown with a given rank
-		for (int i =0; i< this.getGrid().size();i++) {
+		int combinations  = 0;
+		int faceDownCards = 0;
+		Card[] downCards = new Card[this.getGrid().size()];
+		for (int i = 0; i< this.getGrid().size();i++) {
 			if(!this.getGrid().get(i).isFaceUp()) {
-				if(this.getGrid().get(i).getRank().equals("a")){
-					rankExistance[0] = true;
-					}
-					else {
-						rankExistance[ScoreManagement.returnRankValue(this.getGrid().get(i))-1] = true;
-					}
+				downCards[faceDownCards] = this.getGrid().get(i);
+				faceDownCards++;
 			}
-	    }
-		//Look for posible straight combinations (includes invalid flush straights)
-		for(int i=4;i<rankExistance.length;i++)
+		}
+		for(int j = 4; j<faceDownCards;j++)
 		{
-			if((rankExistance[i-4])&&rankExistance[i-3]&&rankExistance[i-2]&&rankExistance[i-1]&&rankExistance[i]) {
+			if(ComboLevel.isStraight(downCards[j-4], downCards[j-3], downCards[j-2], downCards[j-1], downCards[j], this)) {
 				combinations++;
 			}
 		}
-		//Special case where rank a is highest:
-		if(rankExistance[0]&&rankExistance[12]&&rankExistance[11]&&rankExistance[10]&&rankExistance[9]){
-			combinations++;
-		}
-		MemoryFrame.dprintln("combinations Result "+ combinations);
+						
+		MemoryFrame.dprintln("combinations left: "+ combinations);
 		return combinations;
 	}
 }
