@@ -63,8 +63,8 @@ public class RankTrioLevelScored extends RankTrioLevel {
 	protected boolean  isGameOver(){
 		if(!areCombinationsLeft){
 			//Show Ending Messages
-			String GameOver = "Congratulations you have reach the end of the game/r/n"+
-			"There is no more trio combinations left/r/n/r/n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			String GameOver = "Congratulations you have reach the end of the game\r\n"+
+			"There is no more trio combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
 			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
 			return true;
 		}

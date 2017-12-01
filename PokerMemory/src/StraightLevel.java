@@ -1,14 +1,16 @@
 import java.util.Arrays;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class StraightLevel extends FlushLevel {
 
 	private long score;
-	private GameLevel level;
+	private boolean areCombinationsLeft;
 
 	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
+		areCombinationsLeft = true;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -153,5 +155,51 @@ public class StraightLevel extends FlushLevel {
 	{
 		score += 1000 + 100*highRank;
 		this.getMainFrame().setScore(score);
+		if(straightCombinationsLeft() == 0) {
+			areCombinationsLeft = false;
+		}
+	}
+	
+	//GameOver when there are no more straigt combinations. Show end Message.
+	@Override
+	protected boolean  isGameOver(){
+		if(!areCombinationsLeft){
+			//Show Ending Messages
+			String GameOver = "Congratulations you have reach the end of the game\r\n"+
+			"There is no more straight combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
+			return true;
+		}
+		return false;
+	}
+		
+	//Find the total number of valid combinations in the grid.
+	public int straightCombinationsLeft() {
+		boolean[] rankExistance = new boolean[13];
+		int combinations = 0;
+		//Get if there are cards facedown with a given rank
+		for (int i =0; i< this.getGrid().size();i++) {
+			if(!this.getGrid().get(i).isFaceUp()) {
+				if(this.getGrid().get(i).getRank().equals("a")){
+					rankExistance[0] = true;
+					}
+					else {
+						rankExistance[ScoreManagement.returnRankValue(this.getGrid().get(i))-1] = true;
+					}
+			}
+	    }
+		//Look for posible straight combinations (includes invalid flush straights)
+		for(int i=4;i<rankExistance.length;i++)
+		{
+			if((rankExistance[i-4])&&rankExistance[i-3]&&rankExistance[i-2]&&rankExistance[i-1]&&rankExistance[i]) {
+				combinations++;
+			}
+		}
+		//Special case where rank a is highest:
+		if(rankExistance[0]&&rankExistance[12]&&rankExistance[11]&&rankExistance[10]&&rankExistance[9]){
+			combinations++;
+		}
+		MemoryFrame.dprintln("combinations Result "+ combinations);
+		return combinations;
 	}
 }
