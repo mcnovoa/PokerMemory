@@ -1,13 +1,16 @@
 import java.util.Arrays;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class StraightLevel extends FlushLevel {
 
 	private long score;
-	private GameLevel level;
+	private boolean areCombinationsLeft;
 
 	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
+		areCombinationsLeft = true;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -152,5 +155,43 @@ public class StraightLevel extends FlushLevel {
 	{
 		score += 1000 + 100*highRank;
 		this.getMainFrame().setScore(score);
+		if(straightCombinationsLeft() == 0) {
+			areCombinationsLeft = false;
+		}
+	}
+	
+	//GameOver when there are no more straigt combinations. Show end Message.
+	@Override
+	protected boolean  isGameOver(){
+		if(!areCombinationsLeft){
+			//Show Ending Messages
+			String GameOver = "Congratulations you have reach the end of the game\r\n"+
+			"There is no more straight combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
+			return true;
+		}
+		return false;
+	}
+		
+	//Find the total number of valid combinations in the grid.
+	public int straightCombinationsLeft() {
+		int combinations  = 0;
+		int faceDownCards = 0;
+		Card[] downCards = new Card[this.getGrid().size()];
+		for (int i = 0; i< this.getGrid().size();i++) {
+			if(!this.getGrid().get(i).isFaceUp()) {
+				downCards[faceDownCards] = this.getGrid().get(i);
+				faceDownCards++;
+			}
+		}
+		for(int j = 4; j<faceDownCards;j++)
+		{
+			if(ComboLevel.isStraight(downCards[j-4], downCards[j-3], downCards[j-2], downCards[j-1], downCards[j], this)) {
+				combinations++;
+			}
+		}
+						
+		MemoryFrame.dprintln("combinations left: "+ combinations);
+		return combinations;
 	}
 }
