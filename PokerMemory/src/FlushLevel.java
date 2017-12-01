@@ -1,8 +1,10 @@
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class FlushLevel extends RankTrioLevel {
 
 	private long score;
+	private boolean areCombinationsLeft;
 
 	// FLUSH LEVEL: The goal is to find, on each turn, five cards with the same suit.
 
@@ -11,6 +13,7 @@ public class FlushLevel extends RankTrioLevel {
 		this.getTurnsTakenCounter().setDifficultyModeLabel("Flush Level");
 		this.setCardsToTurnUp(5);
 		this.score = 0;
+		areCombinationsLeft = true;
 	}
 
 	@Override
@@ -44,6 +47,10 @@ public class FlushLevel extends RankTrioLevel {
 					// Five cards match, calculate points and remove them from the list (they will remain face up)
 					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
 					this.getTurnedCardsBuffer().clear();
+					//Check if game must be over
+					if(flushCombinationsLeft() == 0) {
+						areCombinationsLeft = false;
+					}
 				}
 				else
 				{
@@ -73,4 +80,47 @@ public class FlushLevel extends RankTrioLevel {
 		score += 700 + ScoreManagement.sumOfRanks(a, b, c, d, e);
 		this.getMainFrame().setScore(score);
 	}
+	
+	//GameOver when there are no more flush combinations. Show end Message.
+		@Override
+		protected boolean  isGameOver(){
+			if(!areCombinationsLeft){
+				//Show Ending Messages
+				String GameOver = "Congratulations you have reach the end of the game/r/n"+
+				"There is no more flush combinations left/r/n/r/n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+				JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
+				return true;
+			}
+			return false;
+		}
+		
+	//Find the total number of valid combinations in the grid.
+		public int flushCombinationsLeft() {
+			int[] suitFrequencies = new int[4];
+			int combinations = 0;
+			//Get the amount of cards facedown with the same suit
+			for (int i =0; i< this.getGrid().size();i++) {
+				if(!this.getGrid().get(i).isFaceUp()) {
+					if(this.getGrid().get(i).getSuit().equals("c")){
+						suitFrequencies[0]++;
+					}
+					else if(this.getGrid().get(i).getSuit().equals("d")){
+						suitFrequencies[1]++;
+					}
+					else if(this.getGrid().get(i).getSuit().equals("h")){
+						suitFrequencies[2]++;
+					}
+					else {
+						suitFrequencies[3]++;
+					}
+				}
+			}
+			//Look for posible flush combinations
+			for(int i: suitFrequencies)
+			{
+				combinations += i/5;
+			}
+			MemoryFrame.dprintln("Combinations left: "+ combinations);
+			return combinations;
+		}
 }
