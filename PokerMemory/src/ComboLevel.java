@@ -66,6 +66,7 @@ public class ComboLevel extends StraightLevel {
 		return false;
 	}
 	private int optionPanel(){
+		
 		String[] options = { "Straight", "Flush","Four of a Kind", "Pass"};
 
 		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", 
@@ -85,9 +86,9 @@ public class ComboLevel extends StraightLevel {
 		bufferArr[2] = ScoreManagement.returnRankValue(c);
 		bufferArr[3] = ScoreManagement.returnRankValue(d);
 		bufferArr[4] = ScoreManagement.returnRankValue(e);
-		
+
 		Arrays.sort(bufferArr);
-		
+
 		if((e.getSuit() != a.getSuit()) || (e.getSuit() != b.getSuit()) || 
 				(e.getSuit() != c.getSuit()) || (e.getSuit() != d.getSuit()) ){
 

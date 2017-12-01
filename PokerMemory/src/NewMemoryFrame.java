@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JMenu;
@@ -168,6 +169,14 @@ public class NewMemoryFrame extends MemoryFrame {
 			super.newGame(difficultyMode);
 		}
 	}
+	
+	
+	@Override
+	public boolean gameOver() throws FileNotFoundException, InterruptedException {
+		// TODO Auto-generated method stub
+		return super.gameOver();
+	}
+
 	private void showInstructions()
 	{
 		dprintln("MemoryGame.showInstructions()");
