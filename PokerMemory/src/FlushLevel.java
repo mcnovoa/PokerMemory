@@ -39,13 +39,8 @@ public class FlushLevel extends RankTrioLevel {
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(1);
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(2);
 				Card otherCard4 = (Card) this.getTurnedCardsBuffer().get(3);
-				if((card.getSuit().equals(otherCard1.getSuit())) &&
-						(card.getSuit().equals(otherCard2.getSuit())) &&
-						(card.getSuit().equals(otherCard3.getSuit())) &&
-						(card.getSuit().equals(otherCard4.getSuit())))
+				if(FlushLevel.isFlush(otherCard1, otherCard2, otherCard3, otherCard4, card))
 				{
-
-
 					// Five cards match, calculate points and remove them from the list (they will remain face up)
 					this.successScoreUpdate(card,otherCard1, otherCard2, otherCard3, otherCard4);
 					this.getTurnedCardsBuffer().clear();
@@ -59,6 +54,16 @@ public class FlushLevel extends RankTrioLevel {
 			}
 			return true;
 		}
+		return false;
+	}
+	public static boolean isFlush(Card a, Card b, Card c, Card d, Card e){
+		if((a.getSuit().equals(b.getSuit())) &&
+				(a.getSuit().equals(c.getSuit())) &&
+				(a.getSuit().equals(d.getSuit())) &&
+				(a.getSuit().equals(e.getSuit()))){
+			return true;
+		}
+		
 		return false;
 	}
 

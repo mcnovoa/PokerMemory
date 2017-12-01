@@ -107,7 +107,6 @@ public class StraightLevel extends FlushLevel {
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
 					this.getMainFrame().setScore(score-=5);
-
 				}
 			}
 			return true;
@@ -120,5 +119,4 @@ public class StraightLevel extends FlushLevel {
 		score += 1000 + 100*highRank;
 		this.getMainFrame().setScore(score);
 	}
-	
 }
