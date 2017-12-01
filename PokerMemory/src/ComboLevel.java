@@ -6,6 +6,7 @@ public class ComboLevel extends StraightLevel {
 
 	private FlushLevel flush;
 	private long score;
+	private boolean areCombinationsLeft;
 
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
@@ -66,7 +67,7 @@ public class ComboLevel extends StraightLevel {
 		return false;
 	}
 	private int optionPanel(){
-		
+
 		String[] options = { "Straight", "Flush","Four of a Kind", "Pass"};
 
 		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", 
@@ -182,7 +183,7 @@ public class ComboLevel extends StraightLevel {
 
 			switch(this.optionPanel()){
 			case 0:
-				this.getMainFrame().setScore(score+= 1000 + 100*bufferArr[4]);
+				this.getMainFrame().setScore(score+= 500 + Math.pow(bufferArr[4], 2));
 				key = true;
 				break;
 
@@ -217,17 +218,53 @@ public class ComboLevel extends StraightLevel {
 
 			case 2:	
 				//Player chose Four of a Kind hand and the if equals true
-				this.getMainFrame().setScore(score += 1000 + 400*bufferArr[3]);
+				this.getMainFrame().setScore(score += 100*bufferArr[3] + 4*bufferArr[4]);
 				key = true;
 				break;
 
 			case 3:
 				//Player decides to pass
 				this.getMainFrame().setScore(score+= +5);
+				if(this.fourOfAKindCombinationsLeft() == 0) {
+					areCombinationsLeft = false;
+				}
 				break;
 			}
 			return key;
 		}
 		return key;
+	}
+
+	@Override
+	protected boolean isGameOver() {
+		if(super.isGameOver() && flush.isGameOver() && !(areCombinationsLeft) ){
+			//Show Ending Messages
+			String GameOver = "Congratulations you have reach the end of the game\r\n"+
+					"There is no more straight combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
+			return true;
+		}
+		return false;
+	}
+
+	public int fourOfAKindCombinationsLeft() {
+		int combinations  = 0;
+		int faceDownCards = 0;
+		int[] downCards = new int[this.getGrid().size()];
+		for (int i = 0; i< this.getGrid().size();i++) {
+			if(!this.getGrid().get(i).isFaceUp()) {
+				downCards[faceDownCards] = ScoreManagement.returnRankValue(this.getGrid().get(i));
+				faceDownCards++;
+			}
+		}
+		Arrays.sort(downCards);
+
+		if((downCards[0] == downCards[1] && downCards[1] == downCards[2]  && downCards[2] == downCards[3] )
+				|| (downCards[1] == downCards[2] && downCards[2] == downCards[3] && downCards[3] == downCards[4])){
+			combinations++;
+		}
+
+		MemoryFrame.dprintln("combinations left: "+ combinations);
+		return combinations;
 	}
 }
