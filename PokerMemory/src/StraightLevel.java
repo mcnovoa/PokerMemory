@@ -46,9 +46,7 @@ public class StraightLevel extends FlushLevel {
 					&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c) 
 					&& (this.getGrid().get(i) != d)){
 				e = this.getGrid().get(i);
-				
 			}
-
 		}
 
 		if(ComboLevel.isStraight(a, b, c, d, e, this)){
