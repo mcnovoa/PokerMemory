@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -53,6 +52,9 @@ public class NewMemoryFrame extends MemoryFrame {
 		
 		//Remove original levels from Memory Frame
 		memoryMenu.removeAll();
+		
+		//Rename Memory menu to New Game.
+		memoryMenu.setText("New Game");
 		
 		//Add extended and original levels
 		JMenuItem equalPairMenuItem = new JMenuItem("Equal Pair");
