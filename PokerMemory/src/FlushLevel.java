@@ -17,7 +17,7 @@ public class FlushLevel extends RankTrioLevel {
 	}
 
 	@Override
-	public String getMode() {
+	public String getLevel() {
 		return "FlushMode";
 	}
 
@@ -83,7 +83,7 @@ public class FlushLevel extends RankTrioLevel {
 	
 	//GameOver when there are no more flush combinations. Show end Message.
 		@Override
-		protected boolean  isGameOver(){
+		public boolean  isGameOver(){
 			if(!areCombinationsLeft){
 				//Show Ending Messages
 				String GameOver = "Congratulations you have reach the end of the game\r\n"+

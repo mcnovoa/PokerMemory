@@ -60,7 +60,7 @@ public class RankTrioLevelScored extends RankTrioLevel {
 	
 	//GameOver when there are no more trio combinations. Show end Message.
 	@Override
-	protected boolean  isGameOver(){
+	public boolean  isGameOver(){
 		if(!areCombinationsLeft){
 			//Show Ending Messages
 			String GameOver = "Congratulations you have reach the end of the game\r\n"+

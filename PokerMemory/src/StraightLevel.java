@@ -15,7 +15,7 @@ public class StraightLevel extends FlushLevel {
 	}
 
 	@Override
-	public String getMode() {
+	public String getLevel() {
 		// TODO Auto-generated method stub
 		return "StraightMode";
 	}
@@ -162,7 +162,7 @@ public class StraightLevel extends FlushLevel {
 	
 	//GameOver when there are no more straigt combinations. Show end Message.
 	@Override
-	protected boolean  isGameOver(){
+	public boolean  isGameOver(){
 		if(!areCombinationsLeft){
 			//Show Ending Messages
 			String GameOver = "Congratulations you have reach the end of the game\r\n"+

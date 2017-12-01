@@ -53,7 +53,7 @@ public class EqualPairLevelScored extends EqualPairLevel {
 	}
 	
 	@Override
-	protected boolean  isGameOver(){
+	public boolean  isGameOver(){
 		if(super.isGameOver()){
 			String GameOver = "Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
 			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
