@@ -21,7 +21,6 @@ public class Card extends JLabel implements MouseListener
 	private String suit;
 	private String rank;
 	private int iconWidthHalf, iconHeightHalf; 	// half the dimensions of the back face icon
-	private boolean mousePressedOnMe = false;
 
 	/**
 	 * Constructor
@@ -63,13 +62,22 @@ public class Card extends JLabel implements MouseListener
 	 */
 	public void turnUp()
 	{
-		MemoryGame.dprintln("Card["+num+"].turnUp()");
+		MemoryFrame.dprintln("Card["+num+"].turnUp()");
 		// the card is already face up
 		if(this.faceUp) return;
 		// ask manager to allow turn
 		this.faceUp = this.turnedManager.turnUp(this);
 		// allowed to turn, so change the picture
 		if(this.faceUp) this.setIcon(this.faceIcon);
+	}
+	/**
+	 * This method forces the card to flip face up.
+	 * Can be used to guarantee that a selected card flips face up before a modal dialog pops up
+	 */
+	
+	public void faceUp() {
+		this.faceUp = true;
+		this.setIcon(this.faceIcon);
 	}
 
 	/**
@@ -78,7 +86,7 @@ public class Card extends JLabel implements MouseListener
 	 */
 	public void turnDown()
 	{
-		MemoryGame.dprintln("Card["+num+"].turnDown()");
+		MemoryFrame.dprintln("Card["+num+"].turnDown()");
 		if(!this.faceUp) return;
 		this.setIcon(this.backIcon);
 		this.faceUp = false;
@@ -117,7 +125,7 @@ public class Card extends JLabel implements MouseListener
 	public void mouseClicked(MouseEvent e)
 	{
 		// over icon, so try to turn up the card
-		System.out.println("Mouse clicked");
+		MemoryFrame.dprintln("Mouse clicked at x = " + e.getX() + " y = " + e.getY());
 		if(overIcon(e.getX(), e.getY())) this.turnUp();
 	}
 

@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 
 public class MemoryFrame extends JFrame {
 
+	private static final long serialVersionUID = -1779776750581169562L;
 	private static final boolean DEBUG = true;
 	private JPanel contentPane;
 	private TurnsTakenCounterLabel turnCounterLabel;
@@ -126,7 +127,7 @@ public class MemoryFrame extends JFrame {
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		panel_1.add(horizontalStrut_2);
 
-		JLabel lblNewLabel = new JLabel("Clicks:");
+		JLabel lblNewLabel = new JLabel("Turns:");
 		panel_1.add(lblNewLabel);
 		
 		turnCounterLabel = new TurnsTakenCounterLabel();

@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 
 public class ComboLevel extends StraightLevel {
 
-	private FlushLevel flush;
 	private long score;
 	private boolean areCombinationsLeft;
 
@@ -14,7 +13,7 @@ public class ComboLevel extends StraightLevel {
 	}
 
 	@Override
-	public String getMode() {
+	public String getLevel() {
 		// TODO Auto-generated method stub
 		return "ComboMode";
 	}
@@ -236,7 +235,7 @@ public class ComboLevel extends StraightLevel {
 	}
 
 	@Override
-	protected boolean isGameOver() {
+	public boolean isGameOver() {
 		if(super.isGameOver() && flush.isGameOver() && !(areCombinationsLeft) ){
 			//Show Ending Messages
 			String GameOver = "Congratulations you have reach the end of the game\r\n"+
