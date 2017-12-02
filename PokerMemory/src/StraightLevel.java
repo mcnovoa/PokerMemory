@@ -25,38 +25,6 @@ public class StraightLevel extends FlushLevel {
 		return score;
 	}
 	
-//	protected boolean isGameOver(Card a, Card b, Card c, Card d, Card e) {
-//		
-//		Card[] newArr = new Card[this.getGrid().size()];
-//
-//		for (int i = 0; i < newArr.length ; i++) {
-//			if(!(this.getGrid().get(i).isFaceUp())){
-//				a = this.getGrid().get(i);
-//			}
-//			else if (!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a)){
-//				b = this.getGrid().get(i);
-//			}
-//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) && (this.getGrid().get(i) != b)){
-//				c = this.getGrid().get(i);
-//			}
-//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
-//				&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c)){
-//				d = this.getGrid().get(i);
-//			}
-//			else if(!(this.getGrid().get(i).isFaceUp()) && (this.getGrid().get(i) != a) 
-//					&& (this.getGrid().get(i) != b) && (this.getGrid().get(i) != c) 
-//					&& (this.getGrid().get(i) != d)){
-//				e = this.getGrid().get(i);
-//			}
-//		}
-//
-//		if(ComboLevel.isStraight(a, b, c, d, e, this)){
-//			return false;
-//		}
-//
-//		return true;
-//	}
-
 	@Override
 	protected boolean turnUp(Card card) {
 		// TODO Auto-generated method stub
@@ -165,7 +133,7 @@ public class StraightLevel extends FlushLevel {
 	public boolean  isGameOver(){
 		if(!areCombinationsLeft){
 			//Show Ending Messages
-			String GameOver = "Congratulations you have reach the end of the game\r\n"+
+			String GameOver = "Congratulations you have reached the end of the game\r\n"+
 			"There is no more straight combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
 			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
 			return true;
@@ -176,22 +144,55 @@ public class StraightLevel extends FlushLevel {
 	//Find the total number of valid combinations in the grid.
 	public int straightCombinationsLeft() {
 		int combinations  = 0;
-		int faceDownCards = 0;
-		Card[] downCards = new Card[this.getGrid().size()];
-		for (int i = 0; i< this.getGrid().size();i++) {
+		
+		//Get the amount of cards facedown with the same rank and save to array where index + 1 means the rank of a card (rank "a" counted as 1 and 13)
+		int[] rankFrequencies = new int[14];
+		for (int i =0; i< this.getGrid().size();i++) {
 			if(!this.getGrid().get(i).isFaceUp()) {
-				downCards[faceDownCards] = this.getGrid().get(i);
-				faceDownCards++;
+				if(this.getGrid().get(i).getRank().equals("a")){
+					rankFrequencies[0]++;
+					rankFrequencies[13]++;
+					}
+					else 
+					{
+						rankFrequencies[ScoreManagement.returnRankValue(this.getGrid().get(i))-1]++;
+					}
 			}
 		}
-		for(int j = 4; j<faceDownCards;j++)
+		
+		//Calculate number of possible straight combinations flush inclusive using multiplication (the straight*rule and 0 <= frequency <= 4.
+		for(int j = 4; j<rankFrequencies.length;j++)
 		{
-			if(ComboLevel.isStraight(downCards[j-4], downCards[j-3], downCards[j-2], downCards[j-1], downCards[j], this)) {
-				combinations++;
+			//Any rank that has cero frequency will make the count for the straight hands containing them 0.
+			combinations += rankFrequencies[j-4]*rankFrequencies[j-3]*rankFrequencies[j-2]*rankFrequencies[j-1]*rankFrequencies[j];
+		}
+		combinations -= straightFlushCombinations("c")+straightFlushCombinations("d")+straightFlushCombinations("h")+straightFlushCombinations("s");
+						
+		MemoryFrame.dprintln("combinations possible: "+ combinations);
+		return combinations;
+	}
+	
+	//Calculate straight flush combinations from cards down in grid for a given suit.
+	public int straightFlushCombinations(String suit) {
+		int flushSCombinations = 0;
+		int[] ranksOfSuit = new int[14];
+		for (int i =0; i< this.getGrid().size();i++) {
+			if((!this.getGrid().get(i).isFaceUp())&&(this.getGrid().get(i).getSuit().equals(suit))) {
+				if(this.getGrid().get(i).getRank().equals("a")){
+					ranksOfSuit[0]++;
+					ranksOfSuit[13]++;
+					}
+					else 
+					{
+						ranksOfSuit[ScoreManagement.returnRankValue(this.getGrid().get(i))-1]++;
+					}
+			}
+			for(int j = 4; j<ranksOfSuit.length;j++)
+			{
+				//frequency will be either 1 or 0, five ones means one flush straight combination.
+				flushSCombinations += ranksOfSuit[j-4]*ranksOfSuit[j-3]*ranksOfSuit[j-2]*ranksOfSuit[j-1]*ranksOfSuit[j];
 			}
 		}
-						
-		MemoryFrame.dprintln("combinations left: "+ combinations);
-		return combinations;
+		return flushSCombinations;
 	}
 }
