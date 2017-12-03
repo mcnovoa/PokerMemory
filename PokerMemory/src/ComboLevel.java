@@ -6,7 +6,11 @@ public class ComboLevel extends StraightLevel {
 
 	private long score;
 	private boolean areCombinationsLeft;
+	private FlushLevel flush;
 
+	String[] options = { "Straight", "Flush","Four of a Kind", "Pass"};
+
+	
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		// TODO Auto-generated constructor stub
@@ -66,9 +70,7 @@ public class ComboLevel extends StraightLevel {
 		return false;
 	}
 	private int optionPanel(){
-
-		String[] options = { "Straight", "Flush","Four of a Kind", "Pass"};
-
+		
 		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", 
 				"Great, you found a hand!", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,
 				null, options,options[0]);
@@ -236,10 +238,11 @@ public class ComboLevel extends StraightLevel {
 
 	@Override
 	public boolean isGameOver() {
-		if(super.isGameOver() && flush.isGameOver() && !(areCombinationsLeft) ){
+		if(super.straightCombinationsLeft() == 0 && super.flushCombinationsLeft() == 0
+				&& this.fourOfAKindCombinationsLeft() == 0){
 			//Show Ending Messages
-			String GameOver = "Congratulations you have reach the end of the game\r\n"+
-					"There is no more straight combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			String GameOver = "Congratulations you have reached the end of the game\r\n"+
+					"There is no more straight, flush or four of a kind combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
 			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
 			return true;
 		}

@@ -24,6 +24,15 @@ public class FlushLevel extends RankTrioLevel {
 	public long getScore() {
 		return score;
 	}
+	
+
+	public boolean getAreCombinationsLeft() {
+		return areCombinationsLeft;
+	}
+
+	public void setAreCombinationsLeft(boolean areCombinationsLeft) {
+		this.areCombinationsLeft = areCombinationsLeft;
+	}
 
 	@Override
 	protected boolean turnUp(Card card) {
