@@ -142,6 +142,7 @@ public class ComboLevel extends StraightLevel {
 				this.getMainFrame().setScore(score+= +5);
 			}
 		}
+
 		//Straight Hand Validation
 
 		else if(ComboLevel.isStraight(a,b,c,d,e, this)){
