@@ -102,14 +102,14 @@ public class ComboLevel extends StraightLevel {
 
 			//Special Case #1: If otherCard1's rank is "t"
 
-			if((bufferArr[0] == 10) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
+			else if((bufferArr[0] == 10) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
 					&& bufferArr[4] == 20){
 				return true;
 			}
-			
+
 			//Special Case #2: If otherCard1's rank is "a"
 
-			if((bufferArr[4] == 20) && (bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4)
+			else if((bufferArr[4] == 20) && (bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4)
 					&& bufferArr[3] == 5){
 				return true;
 			}
@@ -201,7 +201,7 @@ public class ComboLevel extends StraightLevel {
 				|| (downCards[1] == downCards[2] && downCards[2] == downCards[3] && downCards[3] == downCards[4])){
 			combinations++;
 		}
-		
+
 		for(int i: downCards)
 		{
 			combinations += i/5;
