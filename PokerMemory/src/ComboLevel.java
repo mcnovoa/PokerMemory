@@ -199,6 +199,7 @@ public class ComboLevel extends StraightLevel {
 				}
 			}
 		}
+		
 		//We have to find the frequency of each rank and stored in the array with index rank - 1, rank "a" stored in 0
 
 		for(int i: downCards){
