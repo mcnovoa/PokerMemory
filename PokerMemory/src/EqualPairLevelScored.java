@@ -24,6 +24,9 @@ public class EqualPairLevelScored extends EqualPairLevel {
 		// the card may be turned
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
+			//Play turnUp sound
+			AudioEffect.playCardSelectionSFX();
+			
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
 			{
@@ -38,12 +41,16 @@ public class EqualPairLevelScored extends EqualPairLevel {
 					this.getTurnedCardsBuffer().clear();
 					//Add points for match
 				    this.getMainFrame().setScore(score+=50);
+					//Play correct sound
+					AudioEffect.playCorrectSFX();
 				}
 				// the cards do not match, so start the timer to turn them down
 				else { 
 					this.getTurnDownTimer().start();
 					//Penalty for mismatch
 					this.getMainFrame().setScore(score-=5);
+					//Play wrong sound
+					AudioEffect.playWrongSFX();
 				}
 			}
 			return true;

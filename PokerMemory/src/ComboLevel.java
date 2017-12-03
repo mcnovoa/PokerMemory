@@ -29,6 +29,9 @@ public class ComboLevel extends StraightLevel {
 		// TODO Auto-generated method stub
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
+			//Play turnUp sound
+			AudioEffect.playCardSelectionSFX();
+			
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp()){
@@ -49,12 +52,17 @@ public class ComboLevel extends StraightLevel {
 
 				if(isValid(otherCard1, otherCard2, otherCard3, otherCard4, card)){
 					this.getTurnedCardsBuffer().clear();
+					//Play correct sound
+					AudioEffect.playCorrectSFX();
+					//Check for gameover conditions
 					this.updateNoCombinationsLeft();
 				}
 				else{
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
 					this.getMainFrame().setScore(score -= 5);
+					//Play wrong sound
+					AudioEffect.playWrongSFX();
 				}
 			}
 			return true;

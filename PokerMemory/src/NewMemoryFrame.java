@@ -245,7 +245,8 @@ public class NewMemoryFrame extends MemoryFrame {
 	private void showAbout()
 	{
 		dprintln("MemoryGame.showAbout()");
-		final String ABOUTTEXT = "Game Customized at UPRM. Originally written by Mike Leonhard";
+		final String ABOUTTEXT = "Game Customized at UPRM. Originally written by Mike Leonhard.\n"
+				+"Music used under Creative Commons License, effects attributed to bertrof@freesound.org";
 
 		JOptionPane.showMessageDialog(this, ABOUTTEXT
 				, "About Memory Game", JOptionPane.PLAIN_MESSAGE);

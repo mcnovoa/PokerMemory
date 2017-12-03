@@ -26,6 +26,9 @@ public class RankTrioLevelScored extends RankTrioLevel {
 		// the card may be turned
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
+			//Play turnUp sound
+			AudioEffect.playCardSelectionSFX();
+			
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
@@ -41,6 +44,9 @@ public class RankTrioLevelScored extends RankTrioLevel {
 					this.getTurnedCardsBuffer().clear();
 					//Calculate and update points for a match.
 					this.getMainFrame().setScore(score += 100 + ScoreManagement.sumOfRanks(card, otherCard1, otherCard2));
+					//Play correct sound
+					AudioEffect.playCorrectSFX();
+					//Check for gameover Conditions
 					if(trioCombinationsLeft() == 0) {
 						areCombinationsLeft = false;
 					}
@@ -51,6 +57,8 @@ public class RankTrioLevelScored extends RankTrioLevel {
 					this.getTurnDownTimer().start();
 					// Penalty of five point for mismatch.
 					this.getMainFrame().setScore(score -=5);
+					//Play wrong sound
+					AudioEffect.playWrongSFX();
 				}
 			}
 			return true;

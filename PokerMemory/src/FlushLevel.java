@@ -39,6 +39,9 @@ public class FlushLevel extends RankTrioLevel {
 		// the card may be turned
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
+			//Play turnUp sound
+			AudioEffect.playCardSelectionSFX();
+			
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
@@ -66,6 +69,8 @@ public class FlushLevel extends RankTrioLevel {
 					// The cards do not match, so start the timer to turn them down
 					this.getTurnDownTimer().start();
 					this.getMainFrame().setScore(score -= 5);
+					//Play wrong sound
+					AudioEffect.playWrongSFX();
 				}
 			}
 			return true;
@@ -88,6 +93,8 @@ public class FlushLevel extends RankTrioLevel {
 
 		score += 700 + ScoreManagement.sumOfRanks(a, b, c, d, e);
 		this.getMainFrame().setScore(score);
+		//Play correct sound
+		AudioEffect.playCorrectSFX();
 	}
 	
 	//GameOver when there are no more flush combinations. Show end Message.

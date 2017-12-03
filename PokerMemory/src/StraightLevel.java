@@ -35,6 +35,9 @@ public class StraightLevel extends FlushLevel {
 		// the card may be turned
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
+			//Play turnUp sound
+			AudioEffect.playCardSelectionSFX();
+			
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
@@ -91,6 +94,8 @@ public class StraightLevel extends FlushLevel {
 						// The cards do not match, so start the timer to turn them down
 						this.getTurnDownTimer().start();
 						this.getMainFrame().setScore(score-=5);
+						//Play wrong sound
+						AudioEffect.playWrongSFX();
 					}
 				}
 			}
@@ -103,6 +108,8 @@ public class StraightLevel extends FlushLevel {
 	{
 		score += 1000 + 100*highRank;
 		this.getMainFrame().setScore(score);
+		//Play correct sound
+		AudioEffect.playCorrectSFX();
 		if(straightCombinationsLeft() == 0) {
 			areCombinationsLeft = false;
 		}
