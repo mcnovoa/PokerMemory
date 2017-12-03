@@ -5,10 +5,11 @@ import javax.swing.JOptionPane;
 public class ComboLevel extends StraightLevel {
 
 	private long score;
+	private boolean noCombinationsLeft;
 
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
-		// TODO Auto-generated constructor stub
+		noCombinationsLeft = false;
 	}
 
 	@Override
@@ -43,19 +44,12 @@ public class ComboLevel extends StraightLevel {
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(2);
 				Card otherCard4 = (Card) this.getTurnedCardsBuffer().get(3);
 
-				bufferArr[0] = ScoreManagement.returnRankValue(otherCard1);
-				bufferArr[1] = ScoreManagement.returnRankValue(otherCard2);
-				bufferArr[2] = ScoreManagement.returnRankValue(otherCard3);
-				bufferArr[3] = ScoreManagement.returnRankValue(otherCard4);
-				bufferArr[4] = ScoreManagement.returnRankValue(card);
-
-				Arrays.sort(bufferArr);
-
 				//Turn up the last card for the player to see if there's a hand
 				card.faceUp();
 
 				if(isValid(otherCard1, otherCard2, otherCard3, otherCard4, card)){
 					this.getTurnedCardsBuffer().clear();
+					this.updateNoCombinationsLeft();
 				}
 				else{
 					// The cards do not match, so start the timer to turn them down
@@ -171,11 +165,17 @@ public class ComboLevel extends StraightLevel {
 		}
 		return key;
 	}
-
+	
+	//Checks if there exist remaining valid combinations
+	private void updateNoCombinationsLeft()
+	{
+		noCombinationsLeft = super.straightCombinationsLeft() == 0 && super.flushCombinationsLeft() == 0
+				&& this.fourOfAKindCombinationsLeft() == 0;
+	}
+	
 	@Override
 	public boolean isGameOver() {
-		if(super.straightCombinationsLeft() == 0 && super.flushCombinationsLeft() == 0
-				&& this.fourOfAKindCombinationsLeft() == 0){
+		if(noCombinationsLeft){
 			//Show Ending Messages
 			String GameOver = "Congratulations you have reached the end of the game\r\n"+
 					"There is no more straight, flush or four of a kind combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
