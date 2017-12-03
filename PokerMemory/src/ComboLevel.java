@@ -6,11 +6,7 @@ public class ComboLevel extends StraightLevel {
 
 	private long score;
 	private boolean areCombinationsLeft;
-	private FlushLevel flush;
 
-	String[] options = { "Straight", "Flush","Four of a Kind", "Pass"};
-
-	
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		// TODO Auto-generated constructor stub
@@ -56,6 +52,9 @@ public class ComboLevel extends StraightLevel {
 
 				Arrays.sort(bufferArr);
 
+				//Turn up the last card for the player to see if there's a hand
+				card.faceUp();
+
 				if(isValid(otherCard1, otherCard2, otherCard3, otherCard4, card)){
 					this.getTurnedCardsBuffer().clear();
 				}
@@ -69,11 +68,12 @@ public class ComboLevel extends StraightLevel {
 		}
 		return false;
 	}
-	private int optionPanel(){
-		
-		int playMore = JOptionPane.showOptionDialog(null, "Choose one of the following hands:", 
+	private boolean optionPanel(String hand){
+		String[] options = {hand, "Pass"};
+
+		boolean playMore = JOptionPane.showOptionDialog(null, "Choose one of the following options:", 
 				"Great, you found a hand!", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,
-				null, options,options[0]);
+				null, options,hand) == 0;
 		MemoryFrame.dprintln(" " + playMore);
 
 		return playMore;
@@ -100,35 +100,14 @@ public class ComboLevel extends StraightLevel {
 				return true;
 			}
 
-			//Case #1: If otherCard1's rank is "t"
+			//Special Case #1: If otherCard1's rank is "t"
 
 			if((bufferArr[0] == 10) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
 					&& bufferArr[4] == 20){
 				return true;
 			}
-
-			//Case #2: If otherCard1's rank is "j"
-
-			if((bufferArr[0] == 2) && (bufferArr[1] == 11) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
-					&& bufferArr[4] == 20){
-				return true;
-			}
-
-			//Case #3: If otherCard1's rank is "q"
-
-			if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 12) && (bufferArr[3] == 13)
-					&& bufferArr[4] == 20){
-				return true;
-			}
-
-			//Case #4: If otherCard1's rank is "k"
-
-			if((bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4) && (bufferArr[3] == 13)
-					&& bufferArr[4] == 20){
-				return true;
-			}
-
-			//Case #: If otherCard1's rank is "a"
+			
+			//Special Case #2: If otherCard1's rank is "a"
 
 			if((bufferArr[4] == 20) && (bufferArr[0] == 2) && (bufferArr[1] == 3) && (bufferArr[2] == 4)
 					&& bufferArr[3] == 5){
@@ -155,83 +134,40 @@ public class ComboLevel extends StraightLevel {
 
 		if(FlushLevel.isFlush(a, b, c, d, e)){
 
-			switch(this.optionPanel()){
-			case 0: 
-				//the player chose a Straight hand but it was a flush
-				break;
-
-			case 1:
-				//Player chose Flush hand and the if equals true
+			if(this.optionPanel("Flush")){
 				this.getMainFrame().setScore(score+= 700 + ScoreManagement.sumOfRanks(a, b, c, d ,e));
 				key = true;
-				break;
-
-			case 2:	
-				//Player chose Four of a Kind hand but it was Flush
-				break;
-
-			case 3:
-				//Player decides to pass
-				this.getMainFrame().setScore(score+= +5);
-				break;
 			}
-			return key;
+			else {
+				this.getMainFrame().setScore(score+= +5);
+			}
 		}
-
 		//Straight Hand Validation
 
-		if(ComboLevel.isStraight(a,b,c,d,e, this)){
+		else if(ComboLevel.isStraight(a,b,c,d,e, this)){
 
-			switch(this.optionPanel()){
-			case 0:
+			if(this.optionPanel("Straight")){
 				this.getMainFrame().setScore(score+= 500 + Math.pow(bufferArr[4], 2));
 				key = true;
-				break;
-
-			case 1:
-				//Player chose Flush hand but it was Straight 
-				break;
-
-			case 2:	
-				//Player chose Four of a Kind hand but it was Flush
-				break;
-
-			case 3:
-				//Player decides to pass
-				this.getMainFrame().setScore(score+= +5);
-				break;
 			}
-			return key;
+			else {
+				this.getMainFrame().setScore(score+= +5);
+			}
 		}
 
 		//Four of a Kind Hand Validation
-		if((bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3] )
+
+		else if((bufferArr[0] == bufferArr[1] && bufferArr[1] == bufferArr[2]  && bufferArr[2] == bufferArr[3] )
 				|| (bufferArr[1] == bufferArr[2] && bufferArr[2] == bufferArr[3] && bufferArr[3] == bufferArr[4])){
 
-			switch(this.optionPanel()){
-			case 0:
-				//Player chose Straight hand but it was Four of a Kind 
-				break;
+			if(this.optionPanel("Four of a Kind")){
 
-			case 1:
-				//Player chose Flush hand but it was Four of a Kind 
-				break;
-
-			case 2:	
-				//Player chose Four of a Kind hand and the if equals true
 				this.getMainFrame().setScore(score += 100*bufferArr[3] + 4*bufferArr[4]);
 				key = true;
-				break;
-
-			case 3:
-				//Player decides to pass
-				this.getMainFrame().setScore(score+= +5);
-				if(this.fourOfAKindCombinationsLeft() == 0) {
-					areCombinationsLeft = false;
-				}
-				break;
 			}
-			return key;
+			else{
+				this.getMainFrame().setScore(score+= +5);
+			}
 		}
 		return key;
 	}
@@ -264,6 +200,11 @@ public class ComboLevel extends StraightLevel {
 		if((downCards[0] == downCards[1] && downCards[1] == downCards[2]  && downCards[2] == downCards[3] )
 				|| (downCards[1] == downCards[2] && downCards[2] == downCards[3] && downCards[3] == downCards[4])){
 			combinations++;
+		}
+		
+		for(int i: downCards)
+		{
+			combinations += i/5;
 		}
 
 		MemoryFrame.dprintln("combinations left: "+ combinations);
