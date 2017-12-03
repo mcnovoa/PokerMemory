@@ -23,7 +23,7 @@ public class GameManager {
 			NewMemoryFrame instance = new NewMemoryFrame();
 			instance.newGame("easy");
 			instance.setScore(0);
-
+			AudioEffect.playBacgroundSound();
 			while(!instance.gameOver()) {
 				Thread.sleep(500);
 			}
