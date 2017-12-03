@@ -108,7 +108,7 @@ public class StraightLevel extends FlushLevel {
 		}
 	}
 
-	//GameOver when there are no more straigt combinations. Show end Message.
+	//GameOver when there are no more straight combinations. Show end Message.
 	@Override
 	public boolean  isGameOver(){
 		if(!areCombinationsLeft){
