@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 public class ComboLevel extends StraightLevel {
 
 	private long score;
-	private boolean areCombinationsLeft;
 
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
@@ -188,26 +187,24 @@ public class ComboLevel extends StraightLevel {
 
 	public int fourOfAKindCombinationsLeft() {
 		int combinations  = 0;
-		int faceDownCards = 0;
-		int[] downCards = new int[this.getGrid().size()];
+		
+		int[] downCards = new int[13];
 		for (int i = 0; i< this.getGrid().size();i++) {
 			if(!this.getGrid().get(i).isFaceUp()) {
-				downCards[faceDownCards] = ScoreManagement.returnRankValue(this.getGrid().get(i));
-				faceDownCards++;
+				if(this.getGrid().get(i).getRank().equals("a")){
+					downCards[0]++;
+				}
+				else{
+					downCards[ScoreManagement.returnRankValue(this.getGrid().get(i))-1]++;
+				}
 			}
 		}
-		Arrays.sort(downCards);
+		//We have to find the frequency of each rank and stored in the array with index rank - 1, rank "a" stored in 0
 
-		if((downCards[0] == downCards[1] && downCards[1] == downCards[2]  && downCards[2] == downCards[3] )
-				|| (downCards[1] == downCards[2] && downCards[2] == downCards[3] && downCards[3] == downCards[4])){
-			combinations++;
+		for(int i: downCards){
+			combinations+= i/4;
 		}
-
-		for(int i: downCards)
-		{
-			combinations += i/5;
-		}
-
+		
 		MemoryFrame.dprintln("combinations left: "+ combinations);
 		return combinations;
 	}
