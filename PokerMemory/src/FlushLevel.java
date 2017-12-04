@@ -1,3 +1,11 @@
+/**Subclass implements the Flush hand by selecting five cards with the same suit. 
+ * Also handles turning cards back down after a delay if cards don't have the same suit.
+ * Handles its scoring system per turn.
+ * 
+ * @author Alberto Canela (class extender)
+ * @author Maria Novoa (contributor)
+ * @version Nov 2017
+ */
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -24,7 +32,7 @@ public class FlushLevel extends RankTrioLevel {
 	public long getScore() {
 		return score;
 	}
-	
+
 
 	public boolean getAreCombinationsLeft() {
 		return areCombinationsLeft;
@@ -41,7 +49,7 @@ public class FlushLevel extends RankTrioLevel {
 		{
 			//Play turnUp sound
 			AudioEffect.playCardSelectionSFX();
-			
+
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
@@ -84,7 +92,7 @@ public class FlushLevel extends RankTrioLevel {
 				(a.getSuit().equals(e.getSuit()))){
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -96,47 +104,47 @@ public class FlushLevel extends RankTrioLevel {
 		//Play correct sound
 		AudioEffect.playCorrectSFX();
 	}
-	
+
 	//GameOver when there are no more flush combinations. Show end Message.
-		@Override
-		public boolean  isGameOver(){
-			if(!areCombinationsLeft){
-				//Show Ending Messages
-				String GameOver = "Congratulations you have reach the end of the game\r\n"+
-				"There is no more flush combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
-				JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
-				return true;
-			}
-			return false;
+	@Override
+	public boolean  isGameOver(){
+		if(!areCombinationsLeft){
+			//Show Ending Messages
+			String GameOver = "Congratulations you have reach the end of the game\r\n"+
+					"There is no more flush combinations left\r\n\r\n Your Score: "+score+"\r\nMoves Made: "+this.getTurnsTakenCounter().getText();
+			JOptionPane.showMessageDialog(this.getMainFrame(), GameOver, "Game Over", JOptionPane.PLAIN_MESSAGE);
+			return true;
 		}
-		
+		return false;
+	}
+
 	//Find the total number of valid combinations in the grid.
-		public int flushCombinationsLeft() {
-			int[] suitFrequencies = new int[4];
-			int combinations = 0;
-			//Get the amount of cards facedown with the same suit
-			for (int i =0; i< this.getGrid().size();i++) {
-				if(!this.getGrid().get(i).isFaceUp()) {
-					if(this.getGrid().get(i).getSuit().equals("c")){
-						suitFrequencies[0]++;
-					}
-					else if(this.getGrid().get(i).getSuit().equals("d")){
-						suitFrequencies[1]++;
-					}
-					else if(this.getGrid().get(i).getSuit().equals("h")){
-						suitFrequencies[2]++;
-					}
-					else {
-						suitFrequencies[3]++;
-					}
+	public int flushCombinationsLeft() {
+		int[] suitFrequencies = new int[4];
+		int combinations = 0;
+		//Get the amount of cards facedown with the same suit
+		for (int i =0; i< this.getGrid().size();i++) {
+			if(!this.getGrid().get(i).isFaceUp()) {
+				if(this.getGrid().get(i).getSuit().equals("c")){
+					suitFrequencies[0]++;
+				}
+				else if(this.getGrid().get(i).getSuit().equals("d")){
+					suitFrequencies[1]++;
+				}
+				else if(this.getGrid().get(i).getSuit().equals("h")){
+					suitFrequencies[2]++;
+				}
+				else {
+					suitFrequencies[3]++;
 				}
 			}
-			//Look for posible flush combinations
-			for(int i: suitFrequencies)
-			{
-				combinations += i/5;
-			}
-			MemoryFrame.dprintln("Combinations left: "+ combinations);
-			return combinations;
 		}
+		//Look for posible flush combinations
+		for(int i: suitFrequencies)
+		{
+			combinations += i/5;
+		}
+		MemoryFrame.dprintln("Combinations left: "+ combinations);
+		return combinations;
+	}
 }

@@ -1,15 +1,14 @@
-import java.io.File;
+/**Implements audio for the game.
+ * 
+ * @author Alberto Canela (original author)
+ * @author Maria Novoa (contributor)
+ * @version Nov 2017
+ */
 
+import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-/**Implements audio for the game.
- */
-
-/**
- * @author Alberto Canela (original author)
- * @author Maria Novoa (contributor)*
- */
 
 public class AudioEffect {
 

@@ -1,8 +1,7 @@
-/**
- * Class for some scoring methods
+/**Class implements methods for the management of values added/multiplied to the score
  *
- * @author Mar�a C. Novoa Garc�a (original author)
- * @author Alberto Canela Cubero (contribuitor)
+ * @author Maria Novoa (original author)
+ * @author Alberto Canela (contributor)
  * @version Nov 2017
  */
 
@@ -41,13 +40,13 @@ public class ScoreManagement{
 	//Adds the ranks of the cards
 	public static int sumOfRanks(Card a, Card b, Card c) {
 		int sum = ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
-        + ScoreManagement.returnRankValue(c);
+		+ ScoreManagement.returnRankValue(c);
 		return sum;
 	}
 	public static int sumOfRanks(Card a, Card b, Card c, Card d, Card e) {
 		int sum = ScoreManagement.returnRankValue(a) + ScoreManagement.returnRankValue(b)
-        + ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
-        + ScoreManagement.returnRankValue(e);
+		+ ScoreManagement.returnRankValue(c) + ScoreManagement.returnRankValue(d)
+		+ ScoreManagement.returnRankValue(e);
 		return sum;
 	}
 }

@@ -4,21 +4,22 @@
  * Handles its scoring system per turn.
  *
  * @author Alberto Canela (Class Extender)
- * @author Maria Novoa
+ * @author María Novoa (contributor)
  * @version Nov 2017
  */
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class EqualPairLevelScored extends EqualPairLevel {
 
 	private long score;
-	
+
 	protected EqualPairLevelScored(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		this.score = 0;
 	}
-	
+
 	@Override
 	protected boolean turnUp(Card card) {
 		// the card may be turned
@@ -26,7 +27,7 @@ public class EqualPairLevelScored extends EqualPairLevel {
 		{
 			//Play turnUp sound
 			AudioEffect.playCardSelectionSFX();
-			
+
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
 			{
@@ -40,7 +41,7 @@ public class EqualPairLevelScored extends EqualPairLevel {
 				{
 					this.getTurnedCardsBuffer().clear();
 					//Add points for match
-				    this.getMainFrame().setScore(score+=50);
+					this.getMainFrame().setScore(score+=50);
 					//Play correct sound
 					AudioEffect.playCorrectSFX();
 				}
@@ -58,7 +59,7 @@ public class EqualPairLevelScored extends EqualPairLevel {
 		// there are already the number of EasyMode (two face up cards) in the turnedCardsBuffer
 		return false;
 	}
-	
+
 	@Override
 	public boolean  isGameOver(){
 		if(super.isGameOver()){

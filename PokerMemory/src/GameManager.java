@@ -20,10 +20,12 @@ public class GameManager {
 		// make an instance of the main MemoryFrame game class
 		int playMore = 2;
 		while (playMore != 1) {
+			
 			NewMemoryFrame instance = new NewMemoryFrame();
-			instance.newGame("easy");
+			instance.newGame("equalpair");
 			instance.setScore(0);
 			AudioEffect.playBackgroundSound();
+			
 			while(!instance.gameOver()) {
 				Thread.sleep(500);
 			}

@@ -1,3 +1,11 @@
+/**Subclass implements a new level combining Straight, Flush and Four of a Kind hands.
+ * Also handles turning cards back down after a delay if the hand are not Straight, Flush or Four of a Kind hands.
+ * Handles its scoring system per turn. User can choose to get scored or pass the hand.
+ * 
+ * @author Maria Novoa (class extender)
+ * @author Alberto Canela (contributor)
+ * @version Nov 2017
+ */
 import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,7 +39,7 @@ public class ComboLevel extends StraightLevel {
 		{
 			//Play turnUp sound
 			AudioEffect.playCardSelectionSFX();
-			
+
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp()){
@@ -40,8 +48,7 @@ public class ComboLevel extends StraightLevel {
 				this.getTurnsTakenCounter().increment();
 				// get the other card (which was already turned up)
 
-				int[] bufferArr = new int[this.getTurnedCardsBuffer().size()];
-
+				//Put cards on the buffer
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(0);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(1);
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(2);
@@ -69,6 +76,7 @@ public class ComboLevel extends StraightLevel {
 		}
 		return false;
 	}
+
 	private boolean optionPanel(String hand){
 		String[] options = {hand, "Pass"};
 
@@ -140,6 +148,7 @@ public class ComboLevel extends StraightLevel {
 				key = true;
 			}
 			else {
+				//key will be false and score minus five, add five to balance
 				this.getMainFrame().setScore(score+= +5);
 			}
 		}
@@ -153,6 +162,7 @@ public class ComboLevel extends StraightLevel {
 				key = true;
 			}
 			else {
+				//key will be false and score minus five, add five to balance
 				this.getMainFrame().setScore(score+= +5);
 			}
 		}
@@ -168,19 +178,20 @@ public class ComboLevel extends StraightLevel {
 				key = true;
 			}
 			else{
+				//key will be false and score minus five, add five to balance
 				this.getMainFrame().setScore(score+= +5);
 			}
 		}
 		return key;
 	}
-	
+
 	//Checks if there exist remaining valid combinations
 	private void updateNoCombinationsLeft()
 	{
 		noCombinationsLeft = super.straightCombinationsLeft() == 0 && super.flushCombinationsLeft() == 0
 				&& this.fourOfAKindCombinationsLeft() == 0;
 	}
-	
+
 	@Override
 	public boolean isGameOver() {
 		if(noCombinationsLeft){
@@ -195,7 +206,7 @@ public class ComboLevel extends StraightLevel {
 
 	public int fourOfAKindCombinationsLeft() {
 		int combinations  = 0;
-		
+
 		int[] downCards = new int[13];
 		for (int i = 0; i< this.getGrid().size();i++) {
 			if(!this.getGrid().get(i).isFaceUp()) {
@@ -207,13 +218,13 @@ public class ComboLevel extends StraightLevel {
 				}
 			}
 		}
-		
+
 		//We have to find the frequency of each rank and stored in the array with index rank - 1, rank "a" stored in 0
 
 		for(int i: downCards){
 			combinations+= i/4;
 		}
-		
+
 		MemoryFrame.dprintln("combinations left: "+ combinations);
 		return combinations;
 	}

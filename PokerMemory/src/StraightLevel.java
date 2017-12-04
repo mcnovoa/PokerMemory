@@ -1,3 +1,11 @@
+/**Subclass implements the Straight level when five cards of consecutive value are discovered with at least two different suits.
+ * Also handles turning cards back down after a delay if cards are not a Straight hand and handles score.
+ * 
+ * @author Maria Novoa (class extender)
+ * @author Alberto Cubero (contributor)
+ * @version Nov 2017
+ * 
+ */
 import java.util.Arrays;
 
 import javax.swing.JFrame;
@@ -37,7 +45,7 @@ public class StraightLevel extends FlushLevel {
 		{
 			//Play turnUp sound
 			AudioEffect.playCardSelectionSFX();
-			
+
 			// add the card to the list
 			this.getTurnedCardsBuffer().add(card);
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
